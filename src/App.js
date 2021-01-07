@@ -1,8 +1,30 @@
+import React from 'react';
+import Login from './GUCStaffMemberPages/Login';
+import Profile from './GUCStaffMemberPages/Profile';
+import { Route, Switch } from 'react-router-dom';
 
-function App() {
-  return (
-    <h1>Hello World!!</h1>
-  );
+class App extends React.Component {
+
+  state = {
+    id : "",
+  };
+
+  handleId = (id) => {
+    this.setState({id});
+  }
+
+  render() {
+    return (
+      <Switch>
+        <Route path="/" render={() => {
+          return <Login changeId={this.handleId} userId={this.state.id}/>
+        }} exact/>
+        <Route path="/profile" render={() => {
+          return <Profile userId={this.state.id}/>
+        }} exact/>
+      </Switch>
+    );
+  }
 }
 
 export default App;
