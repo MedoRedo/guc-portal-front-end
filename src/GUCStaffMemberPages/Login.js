@@ -49,14 +49,14 @@ function Login(props) {
         password
       });
       setIsValid(true);
-      props.changeId(response.data);
+      props.setUserId(response.data);
     }
     catch(e) {
       setIsValid(false);
     }
   }
   return (
-    props.userId !== "" ? <Redirect to="/profile" push/> :
+    props.userId !== "" ? <Redirect to="/profile"/> :
     <Container component="main" maxWidth="xs">
       <CssBaseline />
       <div className={classes.paper}>

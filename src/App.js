@@ -17,10 +17,10 @@ class App extends React.Component {
     return (
       <Switch>
         <Route path="/" render={() => {
-          return <Login changeId={this.handleId} userId={this.state.id}/>
+          return <Login setUserId={this.handleId} userId={this.state.id}/>
         }} exact/>
         <Route path="/profile" render={() => {
-          return <Profile userId={this.state.id}/>
+          return <Profile setUserId={this.handleId} userId={this.state.id}/>
         }} exact/>
       </Switch>
     );
