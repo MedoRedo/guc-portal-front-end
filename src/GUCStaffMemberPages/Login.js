@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
+import Alert from '@material-ui/lab/Alert';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
@@ -34,6 +35,7 @@ function Login(props) {
   const classes = useStyles();
   const [email, setEmail] = useState("");
   const [password, setPass] = useState("");
+  const [isValid, setIsValid] = useState(true);
   const handleEmail = (event) => {
     setEmail(event.target.value);
   }
@@ -41,16 +43,20 @@ function Login(props) {
     setPass(event.target.value);
   }
   const handleLogin = async() => {
-    const response = await axios.post('http://localhost:5000/login', {
-      email,
-      password
-    });
-    if(response.status === 200)
+    try {
+      const response = await axios.post('http://localhost:5000/login', {
+        email,
+        password
+      });
+      setIsValid(true);
       props.changeId(response.data);
+    }
+    catch(e) {
+      setIsValid(false);
+    }
   }
-
   return (
-    props.userId !== "" ? <Redirect to="/profile"/> :
+    props.userId !== "" ? <Redirect to="/profile" push/> :
     <Container component="main" maxWidth="xs">
       <CssBaseline />
       <div className={classes.paper}>
@@ -87,6 +93,7 @@ function Login(props) {
             value={password} 
             onChange={handlePass}
           />
+          {isValid ? null : <Alert severity="error">invalid email or password</Alert>}
             <Button
               type="button"
               fullWidth
