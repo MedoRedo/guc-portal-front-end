@@ -1,14 +1,15 @@
 import React, {useState} from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
+import Alert from '@material-ui/lab/Alert';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
+import {Redirect, useHistory} from 'react-router-dom';
 import axios from 'axios';
-import {Redirect} from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -34,6 +35,8 @@ function Login(props) {
   const classes = useStyles();
   const [email, setEmail] = useState("");
   const [password, setPass] = useState("");
+  const [isValid, setIsValid] = useState(true);
+  let history = useHistory();
   const handleEmail = (event) => {
     setEmail(event.target.value);
   }
@@ -41,16 +44,22 @@ function Login(props) {
     setPass(event.target.value);
   }
   const handleLogin = async() => {
-    const response = await axios.post('http://localhost:5000/login', {
-      email,
-      password
-    });
-    if(response.status === 200)
-      props.changeId(response.data);
+    try {
+      const response = await axios.post('http://localhost:5000/login',{
+        email,
+        password
+      });
+      localStorage.setItem('auth_token', response.headers.auth_token);
+      localStorage.setItem('userId', response.data);
+      setIsValid(true);
+      history.push('/profile');
+    }
+    catch(e) {
+      setIsValid(false);
+    }
   }
-
   return (
-    props.userId !== "" ? <Redirect to="/profile"/> :
+    localStorage.getItem('auth_token') !== null ? <Redirect to="/profile"/> :
     <Container component="main" maxWidth="xs">
       <CssBaseline />
       <div className={classes.paper}>
@@ -87,6 +96,7 @@ function Login(props) {
             value={password} 
             onChange={handlePass}
           />
+          {isValid ? null : <Alert severity="error">invalid email or password</Alert>}
             <Button
               type="button"
               fullWidth
