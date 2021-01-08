@@ -1,6 +1,6 @@
 import React from 'react';
 import Login from '../GUCStaffMemberPages/Login';
-import Profile from '../HODPages/HODProfile';
+import Profile from '../GUCStaffMemberPages/Profile';
 import Requests from "../HODPages/Requests";
 import Courses from "../HODPages/Courses";
 import ChangePassword from '../GUCStaffMemberPages/ChangePassword';
