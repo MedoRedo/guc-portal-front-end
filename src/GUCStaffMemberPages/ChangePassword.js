@@ -65,7 +65,7 @@ function ChangePassword(props) {
     }
   }
   return (
-	localStorage.getItem('auth_token') === null ? <Redirect to="/"/> :
+	localStorage.getItem('auth_token') === null ? <Redirect to="/login"/> :
 	<Container component="main" maxWidth="xs">
 	  <CssBaseline />
 	  <div className={classes.paper}>
