@@ -8,8 +8,8 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
+import {Redirect, useHistory} from 'react-router-dom';
 import axios from 'axios';
-import {Redirect} from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -36,6 +36,7 @@ function Login(props) {
   const [email, setEmail] = useState("");
   const [password, setPass] = useState("");
   const [isValid, setIsValid] = useState(true);
+  let history = useHistory();
   const handleEmail = (event) => {
     setEmail(event.target.value);
   }
@@ -44,19 +45,21 @@ function Login(props) {
   }
   const handleLogin = async() => {
     try {
-      const response = await axios.post('http://localhost:5000/login', {
+      const response = await axios.post('http://localhost:5000/login',{
         email,
         password
       });
+      localStorage.setItem('auth_token', response.headers.auth_token);
+      localStorage.setItem('userId', response.data);
       setIsValid(true);
-      props.setUserId(response.data);
+      history.push('/profile');
     }
     catch(e) {
       setIsValid(false);
     }
   }
   return (
-    props.userId !== "" ? <Redirect to="/profile"/> :
+    localStorage.getItem('auth_token') !== null ? <Redirect to="/profile"/> :
     <Container component="main" maxWidth="xs">
       <CssBaseline />
       <div className={classes.paper}>
