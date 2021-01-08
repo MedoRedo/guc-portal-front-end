@@ -28,7 +28,7 @@ function Logout(props) {
       color="secondary"
       onClick={handleClick}
     >
-      Log out
+      Logout
     </Button>
   );
 }
