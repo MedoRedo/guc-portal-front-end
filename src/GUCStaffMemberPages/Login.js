@@ -52,14 +52,14 @@ function Login(props) {
       localStorage.setItem('auth_token', response.headers.auth_token);
       localStorage.setItem('userId', response.data);
       setIsValid(true);
-      history.push('/profile');
+      history.push('/');
     }
     catch(e) {
       setIsValid(false);
     }
   }
   return (
-    localStorage.getItem('auth_token') !== null ? <Redirect to="/profile"/> :
+    localStorage.getItem('auth_token') !== null ? <Redirect to="/"/> :
     <Container component="main" maxWidth="xs">
       <CssBaseline />
       <div className={classes.paper}>

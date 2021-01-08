@@ -1,15 +1,16 @@
 import React from 'react';
 import Login from './GUCStaffMemberPages/Login';
-import Profile from './GUCStaffMemberPages/Profile';
+import Profile from './HODPages/HODProfile';
+import Requests from "./HODPages/Requests";
+import Courses from "./HODPages/Courses";
 import ChangePassword from './GUCStaffMemberPages/ChangePassword';
 import { Route, Switch } from 'react-router-dom';
-
+import NavBar from "./components/NavBar";
+import Home from "./components/Home";
 function App() {
   return (
     <Switch>
-      <Route path="/" component={Login} exact/>
-      <Route path="/profile" component={Profile} exact/>
-      <Route path="/changePassword" component={ChangePassword} exact/>
+      <Route path="/" component={Home} />
     </Switch>
   );
 }
