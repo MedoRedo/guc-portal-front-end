@@ -4,7 +4,6 @@ import AccountCircle from '@material-ui/icons/AccountCircle';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import IconButton from '@material-ui/core/IconButton';
 import Badge from '@material-ui/core/Badge';
-import Button from '@material-ui/core/Button';
 import { makeStyles } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Logout from "../GUCStaffMemberPages/Logout";
@@ -48,7 +47,6 @@ const NavBar = (props) =>{
     const [selectedTab, setSelectedTab] = useState(0);
     
     const handleChange = (event, newValue) => {
-        console.log(newValue);
         setSelectedTab(newValue);
         history.push(`/${tabNameToIndex[newValue]}`);
     };
@@ -58,8 +56,6 @@ const NavBar = (props) =>{
     useEffect(()=>{
         if(indexToTabName[path.slice(1)] === undefined)
             return;
-
-        console.log(indexToTabName[path.slice(1)])
         setSelectedTab(indexToTabName[path.slice(1)]);
     }, [path]);
 
