@@ -1,18 +1,22 @@
 import React, {useState, useEffect} from 'react'
-import { Grid } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
-import Card from "../components/CourseCard";
 import axios from 'axios';
-
-const useStyles = makeStyles({
-    gridContainer: {
-      paddingLeft: "40px",
-      paddingRight: "40px"
-    }
-});
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableHead from '@material-ui/core/TableHead';
+import TableRow from '@material-ui/core/TableRow';
+import Typography from '@material-ui/core/Typography';
+import { Button } from '@material-ui/core';
+import {useHistory} from 'react-router-dom'
+const useStyles = makeStyles((theme) => ({
+    title: {margin: '5px'},
+    table: {margin: 'auto', width: '80%'}
+}));
 
 const Courses = (props) => {
     const classes = useStyles();
+    const history = useHistory();
     const [courses, setCourses] = useState([]);
     useEffect(() => {
         // console.log('componentDidMount');
@@ -26,20 +30,37 @@ const Courses = (props) => {
                 res.data
             );                    
         });        
-    },[])
-    return(<Grid container
-            spacing={4}
-            className={classes.gridContainer}
-            justify="center"
-            >
-            {courses.map(course =>{
-                return  <Grid item xs={12} sm={6} md={4}>
-                            <Card key={course.id} id= {course.id} name= {course.name}/>
-                        </Grid>
-                }
-            )}    
-            </Grid>
-        ); 
+    },[]);
+
+    const handleClick = (id) => {
+        history.push(`/courses/${id}`);
+    }
+    return(
+    <>
+        <Typography component="h2" variant="h6" color="primary" className={classes.title} align='center'>
+            Courses
+        </Typography>
+        <Table size="small" className={classes.table}>
+            <TableHead>
+                <TableRow>
+                    <TableCell></TableCell>
+                    <TableCell>Course ID</TableCell>
+                    <TableCell>Course Name</TableCell>
+                </TableRow>
+            </TableHead>
+
+            <TableBody>
+                {courses.map(course => {
+                    return <TableRow key={course.id}>
+                        <TableCell><Button variant='outlined' color='primary' onClick={() => handleClick(course.id)}>View Course</Button></TableCell>
+                        <TableCell>{course.id}</TableCell>
+                        <TableCell>{course.name}</TableCell>
+                    </TableRow>
+                })}
+            </TableBody>
+        </Table>
+    </>
+    ); 
 }
 
 export default Courses;
