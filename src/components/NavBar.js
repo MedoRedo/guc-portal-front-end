@@ -53,15 +53,17 @@ const NavBar = (props) =>{
         history.push(`/${tabNameToIndex[newValue]}`);
     };
     
+    let path = location.pathname === '/'?'/profile':location.pathname; 
   
     useEffect(()=>{
-        let path = location.pathname === '/'?'/profile':location.pathname; 
         if(indexToTabName[path.slice(1)] === undefined)
             return;
 
         console.log(indexToTabName[path.slice(1)])
         setSelectedTab(indexToTabName[path.slice(1)]);
-    })
+    }, [path]);
+
+
     return(
         localStorage.getItem('auth_token') === null ? <Redirect to="/login"/> :
         <div className={classes.root}>
