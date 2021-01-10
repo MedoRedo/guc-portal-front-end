@@ -40,7 +40,7 @@ const InstructorCourses = (props) => {
         <Typography component="h2" variant="h6" color="primary" className={classes.title} align='center'>
             Instructor Courses
         </Typography>
-        <Table size="medium" className={classes.table}>
+        <Table size="small" className={classes.table}>
             <TableHead>
                 <TableRow>
                     <TableCell className={classes.cell}></TableCell>
