@@ -1,9 +1,9 @@
 import React from 'react';
 import InstructorCourses from '../InstructorPages/CoursesPage';
-import  Courses from "../HODPages/Courses";
+import  DepartmentCourses from "../HODPages/DepartmentCourses";
 const AllCourses = (props)=>{
     return (<>
-        <Courses/>
+        <DepartmentCourses/>
         <InstructorCourses/>
 
 
