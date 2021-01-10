@@ -39,7 +39,7 @@ const Courses = (props) => {
     return(
         courses.length!=0&&<>
         <Typography component="h2" variant="h6" color="primary" className={classes.title} align='center'>
-            Courses
+            Department Courses
         </Typography>
         <Table size="small" className={classes.table}>
             <TableHead>
