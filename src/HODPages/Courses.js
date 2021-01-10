@@ -11,7 +11,8 @@ import { Button } from '@material-ui/core';
 import {useHistory} from 'react-router-dom'
 const useStyles = makeStyles((theme) => ({
     title: {margin: '5px'},
-    table: {margin: 'auto', width: '80%'}
+    table: {margin: 'auto'},
+    cell: {textAlign:'center'}
 }));
 
 const Courses = (props) => {
@@ -43,18 +44,18 @@ const Courses = (props) => {
         <Table size="small" className={classes.table}>
             <TableHead>
                 <TableRow>
-                    <TableCell></TableCell>
-                    <TableCell>Course ID</TableCell>
-                    <TableCell>Course Name</TableCell>
+                    <TableCell className={classes.cell}></TableCell>
+                    <TableCell className={classes.cell}>Course ID</TableCell>
+                    <TableCell className={classes.cell}>Course Name</TableCell>
                 </TableRow>
             </TableHead>
 
             <TableBody>
                 {courses.map(course => {
                     return <TableRow key={course.id}>
-                        <TableCell><Button variant='outlined' color='primary' onClick={() => handleClick(course.id)}>View Course</Button></TableCell>
-                        <TableCell>{course.id}</TableCell>
-                        <TableCell>{course.name}</TableCell>
+                        <TableCell className={classes.cell}><Button variant='outlined' color='primary' onClick={() => handleClick(course.id)}>View Course</Button></TableCell>
+                        <TableCell className={classes.cell}>{course.id}</TableCell>
+                        <TableCell className={classes.cell}>{course.name}</TableCell>
                     </TableRow>
                 })}
             </TableBody>
