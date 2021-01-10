@@ -37,7 +37,7 @@ const Courses = (props) => {
         history.push(`/courses/${id}`);
     }
     return(
-    <>
+        courses.length!=0&&<>
         <Typography component="h2" variant="h6" color="primary" className={classes.title} align='center'>
             Courses
         </Typography>
