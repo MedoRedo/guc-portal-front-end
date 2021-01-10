@@ -12,34 +12,33 @@ import {useHistory} from 'react-router-dom'
 const useStyles = makeStyles((theme) => ({
     title: {margin: '5px'},
     table: {margin: 'auto'},
-    cell: {textAlign:'center'}
+    cell :{textAlign:'center'}
 }));
 
-const Courses = (props) => {
+const InstructorCourses = (props) => {
     const classes = useStyles();
     const history = useHistory();
     const [courses, setCourses] = useState([]);
     useEffect(() => {
         // console.log('componentDidMount');
-        axios.get("http://localhost:5000/HOD/courses",{
+        axios.get("http://localhost:5000/instructors/courses",{
             headers : {
               auth_token : localStorage.getItem('auth_token')
             }
           }).then(res => {
             console.log(res.data)
             setCourses(
-                res.data
+                res.data.courses
             );                    
         });        
     },[]);
 
     const handleClick = (id) => {
-        history.push(`/courses/${id}`);
+        history.push(`instructors/courses/${id}`);
     }
-    return(
-        courses.length!=0&&<>
+    return(courses.length!=0&&<>
         <Typography component="h2" variant="h6" color="primary" className={classes.title} align='center'>
-            Courses
+            Instructor Courses
         </Typography>
         <Table size="small" className={classes.table}>
             <TableHead>
@@ -52,10 +51,10 @@ const Courses = (props) => {
 
             <TableBody>
                 {courses.map(course => {
-                    return <TableRow key={course.id}>
-                        <TableCell className={classes.cell}><Button variant='outlined' color='primary' onClick={() => handleClick(course.id)}>View Course</Button></TableCell>
-                        <TableCell className={classes.cell}>{course.id}</TableCell>
-                        <TableCell className={classes.cell}>{course.name}</TableCell>
+                    return <TableRow key={course.courseId}>
+                        <TableCell className={classes.cell}><Button variant='outlined' color='primary' onClick={() => handleClick(course.courseId)}>View Course</Button></TableCell>
+                        <TableCell className={classes.cell}>{course.courseId}</TableCell>
+                        <TableCell className={classes.cell}>{course.courseName}</TableCell>
                     </TableRow>
                 })}
             </TableBody>
@@ -64,4 +63,4 @@ const Courses = (props) => {
     ); 
 }
 
-export default Courses;
+export default InstructorCourses;
