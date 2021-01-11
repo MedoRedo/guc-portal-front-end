@@ -9,6 +9,7 @@ import { Route, Switch } from 'react-router-dom';
 import NavBar from "./NavBar";
 import SignInOut from '../GUCStaffMemberPages/SignInOut';
 import Assign from "../HODPages/AssignInstructor";
+import UpadteProfile from '../GUCStaffMemberPages/UpdateProfile';
 
 function Home() {
   return (
@@ -23,6 +24,7 @@ function Home() {
         <Route path="/changePassword" component={ChangePassword} exact/>
         <Route path="/signin" component={SignInOut} exact/>
         <Route path="/signout" component={SignInOut} exact/>
+        <Route path="/updateProfile" component={UpadteProfile} exact/>
         <Route path="" render={props => <Profile {...props}/>} exact/>
 
       </Switch>

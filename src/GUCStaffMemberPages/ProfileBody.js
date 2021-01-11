@@ -3,6 +3,8 @@ import clsx from 'clsx';
 import PropTypes from 'prop-types';
 import avatar from '../static/images/avatar/1.jpg';
 import {Link} from 'react-router-dom';
+import Alert from '@material-ui/lab/Alert';
+
 import {
   Box,
   Button,
@@ -15,6 +17,7 @@ import {
   makeStyles,
   Avatar
 } from '@material-ui/core';
+import axios from 'axios';
 
 const useStyles = makeStyles((theme) => ({
   root: {},
@@ -67,14 +70,6 @@ const ProfileBody = ({ className, ...rest }) => {
     firstLogin : false,
     department : "Computer Science"
   });
-
-  const handleClick = (event) => {
-    // setValues({
-    //   ...values,
-    //   [event.target.name]: event.target.value
-    // });
-  };
-
   const displayData = (profile) => {
     let res = [];
     for(const elem in profile) {
@@ -90,12 +85,13 @@ const ProfileBody = ({ className, ...rest }) => {
       >
         <TextField
           fullWidth
-          disabled={!(elem === "email" || elem === "gender")}
           label={label}
           name={label.toLowerCase()}
-          onClick={handleClick}
           value={elem === "dayOff" ? mapNumberToDay(profile[elem]) : profile[elem]}
           variant="outlined"
+          InputProps={{
+            readOnly:true
+          }}
         />
       </Grid>);
     }
@@ -137,13 +133,23 @@ const ProfileBody = ({ className, ...rest }) => {
           flexWrap="wrap"
           p={2}
         >
+          <Link to={
+            {
+              pathname:"/updateProfile",
+              state:{
+                email:values.email,
+                gender:values.gender
+              }
+            }
+          } className={classes.link}>
           <Button
-            color="primary"
-            variant="contained"
-            className={classes.button}
-          >
-            Update Profile
-          </Button>
+              color="primary"
+              variant="contained"
+              className={classes.button}
+            >
+              Update Profile
+            </Button>
+          </Link>
           <Link to="/changePassword" className={classes.link}>
             <Button
               color="primary"
@@ -175,11 +181,7 @@ const ProfileBody = ({ className, ...rest }) => {
             Missing Days/Hours
           </Button>
           <Link
-            to={{pathname:"/signin",
-            state:{
-              action:"Sign in",
-              email:values.email
-            }}}
+            to="signin"
             className={classes.link}>
             <Button
               color="primary"
@@ -190,11 +192,7 @@ const ProfileBody = ({ className, ...rest }) => {
             </Button>
           </Link>
           <Link
-            to={{pathname:"/signout",
-            state:{
-              action:"Sign out",
-              email:values.email
-            }}}
+            to="/signout"
             className={classes.link}>
             <Button
               color="primary"
