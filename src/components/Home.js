@@ -6,6 +6,7 @@ import Courses from "../HODPages/Courses";
 import ChangePassword from '../GUCStaffMemberPages/ChangePassword';
 import { Route, Switch } from 'react-router-dom';
 import NavBar from "./NavBar";
+import SignInOut from '../GUCStaffMemberPages/SignInOut';
 
 function Home() {
   return (
@@ -16,6 +17,8 @@ function Home() {
         <Route path="/courses" component={Courses} exact/>
         <Route path="/requests" component={Requests} exact/>
         <Route path="/changePassword" component={ChangePassword} exact/>
+        <Route path="/signin" component={SignInOut} exact/>
+        <Route path="/signout" component={SignInOut} exact/>
         <Route path="" render={props => <Profile {...props}/>} exact/>
 
       </Switch>
