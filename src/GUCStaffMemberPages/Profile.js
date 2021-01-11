@@ -2,6 +2,7 @@ import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import {Grid} from '@material-ui/core';
 import ProfileBody from './ProfileBody';
+import {Redirect} from 'react-router-dom';
 
 
 
@@ -16,6 +17,7 @@ function Profile(props) {
   const classes = useStyles();
 
   return (
+    localStorage.getItem('auth_token') === null ? <Redirect to="/login"/> :
     <Grid container direction="column" alignItems="center">
       <Grid item container xs={12} md={8} direction="column" alignItems="stretch" className={classes.body}>
         <ProfileBody/>
