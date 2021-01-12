@@ -11,6 +11,9 @@ import NavBar from "./NavBar";
 import ViewProfile from '../InstructorPages/ViewProfilePage';
 import AssignCoordinator from '../InstructorPages/CoordinatorAssigningPage';
 import InstructorSlots from '../InstructorPages/SlotsPage';
+import SignInOut from '../GUCStaffMemberPages/SignInOut';
+import Assign from "../HODPages/AssignInstructor";
+import UpadteProfile from '../GUCStaffMemberPages/UpdateProfile';
 
 function Home() {
   return (
@@ -20,12 +23,16 @@ function Home() {
         <Route path="/login" component={Login} exact/>
         <Route path="/courses" component={AllCourses} exact/>
         <Route path="/courses/:id?" render={props => <Course {...props}/>} exact/>
+        <Route path="/courses/:id?/assign" render={props => <Assign {...props}/>} exact/>
         <Route path="/requests" component={Requests} exact/>
         <Route path="/changePassword" component={ChangePassword} exact/>
         <Route path="/courses/:id/instructor" component={InstructorCourseInfo} exact/>;
         <Route path="/profile/:id" component={ViewProfile} exact/>
         <Route path="/course/:courseId/CoordinatorAssigning" component={AssignCoordinator} exact />
         <Route path="/course/:courseId/slots" component={InstructorSlots} exact />
+        <Route path="/signin" component={SignInOut} exact/>
+        <Route path="/signout" component={SignInOut} exact/>
+        <Route path="/updateProfile" component={UpadteProfile} exact/>
         <Route path="" render={props => <Profile {...props}/>} exact/>
 
       </Switch>

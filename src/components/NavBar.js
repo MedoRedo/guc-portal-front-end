@@ -30,7 +30,7 @@ const NavBar = (props) =>{
     let history = useHistory();
     let location = useLocation();
     const tabNameToIndex = {
-        0: "profile",
+        0: "",
         1: "courses",
         2: "requests"
     };

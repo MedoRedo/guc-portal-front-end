@@ -36,7 +36,7 @@ const InstructorCourses = (props) => {
     const handleClick = (id) => {
         history.push(`courses/${id}/instructor`);
     }
-    return(courses.length!=0&&<>
+    return(courses.length!==0&&<>
         <Typography component="h2" variant="h6" color="primary" className={classes.title} align='center'>
             Instructor Courses
         </Typography>
