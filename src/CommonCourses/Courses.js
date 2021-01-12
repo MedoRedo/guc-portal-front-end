@@ -4,7 +4,7 @@ import  DepartmentCourses from "../HODPages/DepartmentCourses";
 const AllCourses = (props)=>{
     return (<>
         <DepartmentCourses/>
-        {/* <InstructorCourses/> */}
+        <InstructorCourses/>
 
 
     </>)
