@@ -6,6 +6,8 @@ import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
+import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
+import Avatar from '@material-ui/core/Avatar';
 import axios from 'axios';
 import {Redirect, useHistory} from 'react-router-dom';
 
@@ -58,7 +60,7 @@ function ChangePassword(props) {
         }
       });
       setIsValid(true);
-      history.push('/profile');
+      history.push('/');
     }
     catch(e) {
       setIsValid(false);
@@ -69,58 +71,61 @@ function ChangePassword(props) {
 	<Container component="main" maxWidth="xs">
 	  <CssBaseline />
 	  <div className={classes.paper}>
-		<Typography component="h1" variant="h5">
-		  Change Password
-		</Typography>
-		<form className={classes.form} noValidate>
-		  <TextField
-			  variant="outlined"
-			  margin="normal"
-			  fullWidth
-			  name="old password"
-			  label="old Password"
-			  type="password"
-			  id="oldPass"
-			  autoComplete="current-password"
-			  value={oldPass} 
-			  onChange={handleOldPass}
-		  />
-			<TextField
-        variant="outlined"
-        margin="normal"
-        fullWidth
-        name="new password"
-        label="new password"
-        type="password"
-        id="newPassword"
-        autoComplete="current-password"
-        value={newPass} 
-        onChange={handleNewPass}
-		  />
-			<TextField
-        variant="outlined"
-        margin="normal"
-        fullWidth
-        name="confirm password"
-        label="confirm password"
-        type="password"
-        id="confirmPassword"
-        autoComplete="current-password"
-        value={confirmPass} 
-        onChange={handleConfirmPass}
-		  />
-		  {isValid ? null : <Alert severity="error">Invalid data</Alert>}
-			<Button
-			  type="button"
-			  fullWidth
-			  variant="contained"
-			  color="primary"
-			  className={classes.submit}
-			  onClick={handleSubmit}
-			>
-			  Submit
-			</Button>
-		</form>
+      <Avatar className={classes.avatar}>
+          <LockOutlinedIcon />
+      </Avatar>
+      <Typography component="h1" variant="h5">
+        Change Password
+      </Typography>
+      <form className={classes.form} noValidate>
+        <TextField
+          variant="outlined"
+          margin="normal"
+          fullWidth
+          name="old password"
+          label="old Password"
+          type="password"
+          id="oldPass"
+          autoComplete="current-password"
+          value={oldPass} 
+          onChange={handleOldPass}
+        />
+        <TextField
+          variant="outlined"
+          margin="normal"
+          fullWidth
+          name="new password"
+          label="new password"
+          type="password"
+          id="newPassword"
+          autoComplete="current-password"
+          value={newPass} 
+          onChange={handleNewPass}
+        />
+        <TextField
+          variant="outlined"
+          margin="normal"
+          fullWidth
+          name="confirm password"
+          label="confirm password"
+          type="password"
+          id="confirmPassword"
+          autoComplete="current-password"
+          value={confirmPass} 
+          onChange={handleConfirmPass}
+        />
+        {isValid ? null : <Alert severity="error">Invalid data</Alert>}
+        <Button
+          type="button"
+          fullWidth
+          variant="contained"
+          color="primary"
+          className={classes.submit}
+          onClick={handleSubmit}
+        >
+          Submit
+        </Button>
+      </form>
 	  </div>
 	</Container>
   );
