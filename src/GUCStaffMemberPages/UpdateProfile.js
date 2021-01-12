@@ -40,8 +40,8 @@ function UpdateProfile(props) {
   const [email, setEmail] = useState("");
   const [gender, setGender] = useState("");
   const [isValid, setIsValid] = useState(true);
-  const [email_c, setEmail_c] = useState(true);
-  const [gender_c, setGender_c] = useState(true);
+  const [email_c, setEmail_c] = useState(false);
+  const [gender_c, setGender_c] = useState(false);
   const [selected, setSelected] = useState(true);
   let history = useHistory();
   const handleEmail = (event) => {
