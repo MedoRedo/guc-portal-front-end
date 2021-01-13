@@ -158,7 +158,7 @@ const ProfileBody = ({ className, ...rest }) => {
               Schedule
             </Button>
           </Link>
-          <Link to="/attendance" className={classes.link}>
+          <Link to="/attendanceForm" className={classes.link}>
             <Button
               color="primary"
               variant="contained"

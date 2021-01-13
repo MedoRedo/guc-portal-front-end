@@ -1,7 +1,7 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState} from 'react';
 import Alert from '@material-ui/lab/Alert';
 import {AssignmentIndRounded} from '@material-ui/icons/';
-import {Redirect, useHistory, useLocation} from 'react-router-dom';
+import {Redirect, useHistory} from 'react-router-dom';
 import axios from 'axios';
 import {
   makeStyles,

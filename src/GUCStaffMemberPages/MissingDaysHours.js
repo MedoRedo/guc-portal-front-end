@@ -40,6 +40,7 @@ export default function MissingDaysHours() {
         }
       })
     Promise.all([daysRes, hoursRes]).then((result) => {
+      console.log(result);
       setRows(result[0].data);
       setHours(result[1].data.missingHours);
       setReady(true);
@@ -63,17 +64,17 @@ export default function MissingDaysHours() {
           <Table aria-label="simple table">
             <TableHead>
               <TableRow>
-                <TableCell>Type</TableCell>
+                <TableCell align="left">Type</TableCell>
                 <TableCell align="center">Amount</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
               <TableRow key={0}>
-                <TableCell component="th" scope="row">Missing Hours</TableCell>
+                <TableCell>Missing Hours</TableCell>
                 <TableCell align="center">{hours > 0 ? `${getHours(hours).h} : ${getHours(hours).m}` : 0}</TableCell>
               </TableRow>
               <TableRow key={1}>
-                <TableCell component="th" scope="row">Extra Hours</TableCell>
+                <TableCell>Extra Hours</TableCell>
                 <TableCell align="center">{hours < 0 ? `${getHours(hours).h} : ${getHours(hours).m}` : 0}</TableCell>
               </TableRow>
             </TableBody>

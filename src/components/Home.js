@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Login from '../GUCStaffMemberPages/Login';
 import Profile from '../GUCStaffMemberPages/Profile';
 import Requests from "../HODPages/Requests";
@@ -16,12 +16,19 @@ import Assign from "../HODPages/AssignInstructor";
 import UpadteProfile from '../GUCStaffMemberPages/UpdateProfile';
 import Forbidden from './Forbidden';
 import MissingDaysHours from '../GUCStaffMemberPages/MissingDaysHours';
+import AttendanceForm from '../GUCStaffMemberPages/AttendanceForm';
+import Attendance from '../GUCStaffMemberPages/Attendance';
 import Schedule from '../GUCStaffMemberPages/Schedule'
 
 function Home() {
+
+  const [visible, setVisible] = useState(true);
+  const showNavBar = (show) => {
+    setVisible(show);
+  }
   return (
     <>
-      <NavBar/>
+      {(visible && <NavBar/>)}
       <Switch>
         <Route path="/login" component={Login} exact/>
         <Route path="/courses" component={AllCourses} exact/>
@@ -36,11 +43,12 @@ function Home() {
         <Route path="/signin" component={SignInOut} exact/>
         <Route path="/signout" component={SignInOut} exact/>
         <Route path="/updateProfile" component={UpadteProfile} exact/>
-        <Route path="/forbidden" component={Forbidden} exact/>
-        <Route path="/missingDays" component={MissingDaysHours}/>
+        <Route path="/missingDays" component={MissingDaysHours} exact/>
+        <Route path="/attendanceForm" component={AttendanceForm} exact/>
+        <Route path="/attendance" component={Attendance} exact/>
         <Route path="/schedule" component={Schedule}/>
-        <Route path="" render={props => <Profile {...props}/>} exact/>
-
+        <Route path="/" component={Profile} exact/>
+        <Route render={() => (<Forbidden showNavBar={showNavBar}/>)}/>
       </Switch>
     </>
   );
