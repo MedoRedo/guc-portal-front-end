@@ -1,10 +1,13 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import clsx from 'clsx';
 import PropTypes from 'prop-types';
 import avatar from '../static/images/avatar/1.jpg';
 import axios from 'axios';
 import {Redirect, useHistory, useLocation} from 'react-router-dom';
 
+// import { makeStyles } from '@material-ui/core/styles';
+
+import { withStyles, makeStyles } from '@material-ui/core/styles';
 import {
   Box,
   Button,
@@ -12,64 +15,111 @@ import {
   CardContent,
   CardHeader,
   Divider,
-  Grid,
   TextField,
-  makeStyles,
-  Avatar
+  Avatar,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  Paper,
+  Grid,
 } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
   root: {},
-  button : {
-    margin : theme.spacing(1)
+  tableContainer: {
+    padding: theme.spacing(4)
   },
-  link : {
-    textDecoration : 'none'
+  tableRow: {
+    '&:nth-of-type(odd)': {
+      backgroundColor: theme.palette.action.hover,
+    },
+  },
+  headCell: {
+    backgroundColor: '#D3D3D3',
+    color: theme.palette.common.black,
+    fontSize: 16,
+    padding: theme.spacing(2),
+    fontWeight: 'bold'
+  },
+  bodyCell: {
+    fontSize: 14,
+  },
+  freeCell: {
+      fontSize: 16,
+      backgroundColor: '#228B22',
+      fontWeight: 700
   }
 }));
 
 const mapNumberToDay = (num) => {
   switch(num) {
-    case 0 : return "Sunday";
-    case 1 : return "Monday";
-    case 2 : return "Tuesday";
-    case 3 : return "Wednesday";
-    case 4 : return "Thursday";
-    case 5 : return "Friday";
-    case 6 : return "Saturday";
+    case 0 : return "Saturday";
+    case 1 : return "Sunday";
+    case 2 : return "Monday";
+    case 3 : return "Tuesday";
+    case 4 : return "Wednesday";
+    case 5 : return "Thursday";
+    case 6 : return "Friday";
   }
+}
+
+function search(day, slot, myArray){
+    // console.log(myArray[4].day === day, myArray[4].period === slot, slot)
+    for (var i=0; i < myArray.length; i++) {
+        if (myArray[i].day === day && myArray[i].period === slot) {
+            return myArray[i];
+        }
+    }
+}  
+
+function slotText(slot){
+    return slot === undefined ? 'Free' : slot.course + ',\n' + slot.location;
 }
 
 const Schedule = ({ className, ...rest }) => {
   const classes = useStyles();
-  const [values, setValues] = useState();
-  const displayData = (profile) => {
+  const [schedule, setSchedule] = useState([]);
+  const displayData = (schedule) => {
     let res = [];
-    // for(const elem in profile) {
-    //   if(notDisplayed[elem] === "")
-    //     continue;
-    //   const label = elem.charAt(0) === 'o' ? "OFFICE LOCATION" : elem.toUpperCase();
-    //   res[res.length] = (
-    //   <Grid
-    //     item
-    //     md={6}
-    //     xs={12}
-    //     key={elem}
-    //   >
-    //     <TextField
-    //       fullWidth
-    //       label={label}
-    //       name={label.toLowerCase()}
-    //       value={elem === "dayOff" ? mapNumberToDay(profile[elem]) : profile[elem]}
-    //       variant="outlined"
-    //       InputProps={{
-    //         readOnly:true
-    //       }}
-    //     />
-    //   </Grid>);
-    // }
-    // return res
+    for (let day = 0; day < 6; day++) {
+        let slots = [];
+        for (let slot = 1; slot < 6; slot++) {
+            
+            let temp = search(day, slot, schedule);
+            // console.log(temp)
+            slots[slot] = temp;
+        }
+        // console.log(slots);
+        res[day] = (
+                <TableRow className={classes.tableRow} key={day}>
+                  <TableCell className={classes.headCell} component="th" scope="row" align='center'>{mapNumberToDay(day)}</TableCell>
+                  <TableCell className={slots[0] === undefined ? classes.freeCell : classes.bodyCell} align="center">{slotText(slots[0])}</TableCell>
+                  <TableCell className={slots[1] === undefined ? classes.freeCell : classes.bodyCell} align="center">{slotText(slots[1])}</TableCell>
+                  <TableCell className={slots[2] === undefined ? classes.freeCell : classes.bodyCell} align="center">{slotText(slots[2])}</TableCell>
+                  <TableCell className={slots[3] === undefined ? classes.freeCell : classes.bodyCell} align="center">{slotText(slots[3])}</TableCell>
+                  <TableCell className={slots[4] === undefined ? classes.freeCell : classes.bodyCell} align="center">{slotText(slots[4])}</TableCell>
+                </TableRow>
+        );
+    }
+    return res
   }
+
+  useEffect(async () => {
+    try{
+    const user = await axios.get('http://localhost:5000/schedule', {
+      headers : {
+        'auth_token' : localStorage.getItem('auth_token')
+      }
+    });
+    console.log(user.data.schedule);
+    setSchedule(user.data.schedule);
+    }catch(e){
+        console.log(e)
+    }
+  }, []);
 
   return (
     localStorage.getItem('auth_token') === null ? <Redirect to="/login"/> :
@@ -92,14 +142,23 @@ const Schedule = ({ className, ...rest }) => {
           avatar={<Avatar alt="profile picture" src={avatar} style={{width:'5em', height:'5em'}}/>}
         />
         <Divider />
-        <CardContent>
-          <Grid
-            container
-            spacing={3}
-          >
-            {displayData(values)}
-          </Grid>
-        </CardContent>
+        <TableContainer className={classes.tableContainer} component={Paper}>
+      <Table size="small" aria-label="a dense table">
+        <TableHead>
+          <TableRow>
+            <TableCell></TableCell>
+            <TableCell className={classes.headCell} align="center">First Period</TableCell>
+            <TableCell className={classes.headCell} align="center">Second Period</TableCell>
+            <TableCell className={classes.headCell} align="center">Third Period</TableCell>
+            <TableCell className={classes.headCell} align="center">Fourth Period</TableCell>
+            <TableCell className={classes.headCell} align="center">Fifth Period</TableCell>
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          {displayData(schedule)}
+        </TableBody>
+      </Table>
+    </TableContainer>
         <Divider />
       </Card>
     </form>
