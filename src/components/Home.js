@@ -14,6 +14,7 @@ import InstructorSlots from '../InstructorPages/SlotsPage';
 import SignInOut from '../GUCStaffMemberPages/SignInOut';
 import Assign from "../HODPages/AssignInstructor";
 import UpadteProfile from '../GUCStaffMemberPages/UpdateProfile';
+import Forbidden from './Forbidden';
 import MissingDaysHours from '../GUCStaffMemberPages/MissingDaysHours';
 import AttendanceForm from '../GUCStaffMemberPages/AttendanceForm';
 import Attendance from '../GUCStaffMemberPages/Attendance';
@@ -40,7 +41,7 @@ function Home() {
         <Route path="/attendanceForm" component={AttendanceForm} exact/>
         <Route path="/attendance" component={Attendance} exact/>
         <Route path="/" component={Profile} exact/>
-
+        <Route component={Forbidden}/>
       </Switch>
     </>
   );

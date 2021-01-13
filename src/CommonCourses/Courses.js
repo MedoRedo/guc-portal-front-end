@@ -5,8 +5,6 @@ const AllCourses = (props)=>{
     return (<>
         <DepartmentCourses/>
         <InstructorCourses/>
-
-
     </>)
 }
 export default AllCourses;
