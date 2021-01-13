@@ -82,6 +82,7 @@ function ChangePassword(props) {
           variant="outlined"
           margin="normal"
           fullWidth
+          required
           name="old password"
           label="old Password"
           type="password"
@@ -94,6 +95,7 @@ function ChangePassword(props) {
           variant="outlined"
           margin="normal"
           fullWidth
+          required
           name="new password"
           label="new password"
           type="password"
@@ -106,6 +108,7 @@ function ChangePassword(props) {
           variant="outlined"
           margin="normal"
           fullWidth
+          required
           name="confirm password"
           label="confirm password"
           type="password"
