@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Login from '../GUCStaffMemberPages/Login';
 import Profile from '../GUCStaffMemberPages/Profile';
 import Requests from "../HODPages/Requests";
@@ -20,9 +20,14 @@ import AttendanceForm from '../GUCStaffMemberPages/AttendanceForm';
 import Attendance from '../GUCStaffMemberPages/Attendance';
 
 function Home() {
+
+  const [visible, setVisible] = useState(true);
+  const showNavBar = (show) => {
+    setVisible(show);
+  }
   return (
     <>
-      <NavBar/>
+      {(visible && <NavBar/>)}
       <Switch>
         <Route path="/login" component={Login} exact/>
         <Route path="/courses" component={AllCourses} exact/>
@@ -41,7 +46,7 @@ function Home() {
         <Route path="/attendanceForm" component={AttendanceForm} exact/>
         <Route path="/attendance" component={Attendance} exact/>
         <Route path="/" component={Profile} exact/>
-        <Route component={Forbidden}/>
+        <Route render={() => (<Forbidden showNavBar={showNavBar}/>)}/>
       </Switch>
     </>
   );
