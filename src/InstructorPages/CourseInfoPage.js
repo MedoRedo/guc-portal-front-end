@@ -29,17 +29,23 @@ const InstructorCourseInfo = (props) =>{
     const classes = useStyles();
     const history = useHistory();
     const [courseName, setcourseName] = useState("");
+    const [validName,setValidName] = useState(0);
+    const [validCoverage,setValidCoverage] = useState(0);
+    const [validTables,setValidTables] = useState(0);
     useEffect(()=>{
          axios.get('http://localhost:5000/instructors/courses',{
             headers : {
               auth_token : localStorage.getItem('auth_token')
             }}).then((res)=>{
-                console.log(res);
                 const course = res.data.courses.filter((elem)=>{
                    return elem.courseId == courseId.id;
                 });
-
+                setValidName(1);
                setcourseName(course[0].courseName);
+            }).catch((err)=>{
+                console.log(err);
+                setValidName(-1);
+
             });
         
     },[ ]);
@@ -49,9 +55,12 @@ const InstructorCourseInfo = (props) =>{
             headers : {
               auth_token : localStorage.getItem('auth_token')
             }}).then((res)=>{
-                console.log(res.data);
                 const coverage = res.data[`${courseId.id}`];
                 setCoverage(coverage==null?'The course doesn\'t have slots yet!':`${coverage}%`);
+                setValidCoverage(1);
+            }).catch((err)=>{
+                console.log(err);
+                setValidCoverage(-1);
             })
     },[])
     const [tas,setTas] = useState([]);
@@ -62,10 +71,12 @@ const InstructorCourseInfo = (props) =>{
               auth_token : localStorage.getItem('auth_token')
             }}).then((res)=>{
                 const courseInfo = res.data[`${courseId.id}`];
-                console.log(courseInfo);
-                console.log(courseInfo.TAsAssigned);
                setTas(courseInfo.TAsAssigned?courseInfo.TAs:[]);
+               setValidTables(1);
                setInstructos(courseInfo.instructors);
+            }).catch((err)=>{
+                console.log(err);
+                setValidTables(-1);
             })
     },[]);
     const visitProfile = (profileId)=>{
@@ -77,16 +88,43 @@ const InstructorCourseInfo = (props) =>{
     const AssignCoordinator = ()=>{
         history.push(`/course/${courseId.id}/CoordinatorAssigning`);
     }
+    const TAs = ()=>{ 
+        if(tas.length!==0) return (<Grid className={classes.Grid} item xs={12} md={6}>
+    <TableContainer className={classes.container} >
+        <Table className={classes.table} stickyHeader aria-label="sticky table">
+            <TableHead>
+                <TableRow>
+                    <TableCell className={classes.tableCell}>
+                    <Typography variant='h6' component='h4' color='textPrimary'>Teaching Assistants</Typography>
 
+                    </TableCell>
 
-    return (localStorage.getItem('auth_token') === null ? <Redirect to="/login"/> :<>
+                </TableRow>
+            </TableHead>
+            <TableBody>
+                {tas.map((elem)=> {
+                    return (<TableRow key={elem.id}>
+                        <TableCell className={classes.tableCell}>
+                            <Button  color='primary' onClick={()=>{visitProfile(elem.id)}}>{elem.name}</Button>
+                        </TableCell>
+                    </TableRow>);
+
+                })}
+            </TableBody>
+        </Table>                
+    </TableContainer>
+</Grid>)}
+
+    return (localStorage.getItem('auth_token') === null ? <Redirect to="/login"/>:
+    validCoverage ===-1||validTables===-1||validName===-1?<Redirect to='/forbidden'/>:
+    validCoverage === 0||validTables===0||validName===0?null:<>
      <Card className={classes.card}>
 
        
-        <Typography variant='h4' component='h2' color='primary'> {courseName} </Typography>
-        <Typography variant='h5' component='h3' color='textSecondary'>Coverage : {coverage}</Typography>
-        <Grid className={classes.Grid} container direction="row" justify="center" alignItems="flex-start" spacing={3}>
-            <Grid className={classes.Grid} item xs={6}>
+        <Typography variant='h3' component='h2' color='primary'> {courseName} </Typography>
+        <Typography variant='h4' component='h3' color='textSecondary'>Coverage : {coverage}</Typography>
+        <Grid className={classes.Grid} container direction="row" justify="center"  spacing={3}>
+            <Grid className={classes.Grid} item xs={12} md={6}>
                 <TableContainer className={classes.container}>
                     <Table className={classes.table} stickyHeader aria-label="sticky table">
                         <TableHead>
@@ -112,31 +150,7 @@ const InstructorCourseInfo = (props) =>{
                     </Table>                
                 </TableContainer>
             </Grid>
-            <Grid className={classes.Grid} item xs={6}>
-                <TableContainer className={classes.container} >
-                    <Table className={classes.table} stickyHeader aria-label="sticky table">
-                        <TableHead>
-                            <TableRow>
-                                <TableCell className={classes.tableCell}>
-                                <Typography variant='h6' component='h4' color='textPrimary'>Teaching Assistants</Typography>
-
-                                </TableCell>
-
-                            </TableRow>
-                        </TableHead>
-                        <TableBody>
-                            {tas.map((elem)=> {
-                                return (<TableRow key={elem.id}>
-                                    <TableCell className={classes.tableCell}>
-                                        <Button  color='primary' onClick={()=>{visitProfile(elem.id)}}>{elem.name}</Button>
-                                    </TableCell>
-                                </TableRow>);
-
-                            })}
-                        </TableBody>
-                    </Table>                
-                </TableContainer>
-            </Grid>
+            {TAs()}
         </Grid>
         <Box m={1} display='flex' flexDirection='column' alignItems='flex-start'>
             <Button className={classes.button} variant='contained' color='secondary' onClick={()=>{goToSlots()}}>Slots</Button>
