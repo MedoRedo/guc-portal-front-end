@@ -14,6 +14,7 @@ import InstructorSlots from '../InstructorPages/SlotsPage';
 import SignInOut from '../GUCStaffMemberPages/SignInOut';
 import Assign from "../HODPages/AssignInstructor";
 import UpadteProfile from '../GUCStaffMemberPages/UpdateProfile';
+import Forbidden from './Forbidden';
 
 function Home() {
   return (
@@ -33,6 +34,7 @@ function Home() {
         <Route path="/signin" component={SignInOut} exact/>
         <Route path="/signout" component={SignInOut} exact/>
         <Route path="/updateProfile" component={UpadteProfile} exact/>
+        <Route path="/forbidden" component={Forbidden} exact/>
         <Route path="" render={props => <Profile {...props}/>} exact/>
 
       </Switch>
