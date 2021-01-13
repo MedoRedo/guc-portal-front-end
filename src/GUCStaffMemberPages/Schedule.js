@@ -5,8 +5,6 @@ import avatar from '../static/images/avatar/1.jpg';
 import axios from 'axios';
 import {Redirect, useHistory, useLocation} from 'react-router-dom';
 
-// import { makeStyles } from '@material-ui/core/styles';
-
 import { withStyles, makeStyles } from '@material-ui/core/styles';
 import {
   Box,
@@ -21,7 +19,7 @@ import {
   TableBody,
   TableCell,
   TableContainer,
-  TableHead,
+  TableHead,    
   TableRow,
   Paper,
   Grid,
@@ -82,6 +80,7 @@ function slotText(slot){
 const Schedule = ({ className, ...rest }) => {
   const classes = useStyles();
   const [schedule, setSchedule] = useState([]);
+  const [ready, setReady] = useState(false);
   const displayData = (schedule) => {
     let res = [];
     for (let day = 0; day < 6; day++) {
@@ -116,13 +115,15 @@ const Schedule = ({ className, ...rest }) => {
     });
     console.log(user.data.schedule);
     setSchedule(user.data.schedule);
+    setReady(true);
     }catch(e){
         console.log(e)
     }
   }, []);
 
   return (
-    localStorage.getItem('auth_token') === null ? <Redirect to="/login"/> :
+    localStorage.getItem('auth_token') === null ? <Redirect to="/login"/> : 
+    ready &&
     <form
       autoComplete="off"
       noValidate
