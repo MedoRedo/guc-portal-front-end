@@ -15,6 +15,7 @@ import SignInOut from '../GUCStaffMemberPages/SignInOut';
 import Assign from "../HODPages/AssignInstructor";
 import UpadteProfile from '../GUCStaffMemberPages/UpdateProfile';
 import MissingDaysHours from '../GUCStaffMemberPages/MissingDaysHours';
+import Schedule from '../GUCStaffMemberPages/Schedule'
 
 function Home() {
   return (
@@ -35,6 +36,7 @@ function Home() {
         <Route path="/signout" component={SignInOut} exact/>
         <Route path="/updateProfile" component={UpadteProfile} exact/>
         <Route path="/missingDays" component={MissingDaysHours}/>
+        <Route path="/schedule" component={Schedule}/>
         <Route path="" render={props => <Profile {...props}/>} exact/>
 
       </Switch>
