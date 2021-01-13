@@ -50,7 +50,8 @@ function Login(props) {
         password
       });
       localStorage.setItem('auth_token', response.headers.auth_token);
-      localStorage.setItem('userId', response.data);
+      localStorage.setItem('userId', response.data.id);
+      localStorage.setItem('userEmail', response.data.email)
       setIsValid(true);
       history.push('/');
     }
