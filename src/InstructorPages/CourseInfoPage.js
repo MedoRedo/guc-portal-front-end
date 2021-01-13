@@ -29,7 +29,9 @@ const InstructorCourseInfo = (props) =>{
     const classes = useStyles();
     const history = useHistory();
     const [courseName, setcourseName] = useState("");
-    const [valid,setValid] = useState(0);
+    const [validName,setValidName] = useState(0);
+    const [validCoverage,setValidCoverage] = useState(0);
+    const [validTables,setValidTables] = useState(0);
     useEffect(()=>{
          axios.get('http://localhost:5000/instructors/courses',{
             headers : {
@@ -38,11 +40,11 @@ const InstructorCourseInfo = (props) =>{
                 const course = res.data.courses.filter((elem)=>{
                    return elem.courseId == courseId.id;
                 });
-                setValid(1);
+                setValidName(1);
                setcourseName(course[0].courseName);
             }).catch((err)=>{
                 console.log(err);
-                setValid(-1);
+                setValidName(-1);
 
             });
         
@@ -55,10 +57,10 @@ const InstructorCourseInfo = (props) =>{
             }}).then((res)=>{
                 const coverage = res.data[`${courseId.id}`];
                 setCoverage(coverage==null?'The course doesn\'t have slots yet!':`${coverage}%`);
-                setValid(1);
+                setValidCoverage(1);
             }).catch((err)=>{
                 console.log(err);
-                setValid(-1);
+                setValidCoverage(-1);
             })
     },[])
     const [tas,setTas] = useState([]);
@@ -70,11 +72,11 @@ const InstructorCourseInfo = (props) =>{
             }}).then((res)=>{
                 const courseInfo = res.data[`${courseId.id}`];
                setTas(courseInfo.TAsAssigned?courseInfo.TAs:[]);
-               setValid(1);
+               setValidTables(1);
                setInstructos(courseInfo.instructors);
             }).catch((err)=>{
                 console.log(err);
-                setValid(-1);
+                setValidTables(-1);
             })
     },[]);
     const visitProfile = (profileId)=>{
@@ -113,7 +115,9 @@ const InstructorCourseInfo = (props) =>{
     </TableContainer>
 </Grid>)}
 
-    return (localStorage.getItem('auth_token') === null ? <Redirect to="/login"/>:valid===0?null:valid ===-1?<Redirect to='/forbidden'/>:<>
+    return (localStorage.getItem('auth_token') === null ? <Redirect to="/login"/>:
+    validCoverage ===-1||validTables===-1||validName===-1?<Redirect to='/forbidden'/>:
+    validCoverage === 0||validTables===0||validName===0?null:<>
      <Card className={classes.card}>
 
        
