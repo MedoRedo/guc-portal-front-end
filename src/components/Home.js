@@ -16,6 +16,7 @@ import Assign from "../HODPages/AssignInstructor";
 import UpadteProfile from '../GUCStaffMemberPages/UpdateProfile';
 import Forbidden from './Forbidden';
 import MissingDaysHours from '../GUCStaffMemberPages/MissingDaysHours';
+import Schedule from '../GUCStaffMemberPages/Schedule'
 
 function Home() {
   return (
@@ -37,6 +38,7 @@ function Home() {
         <Route path="/updateProfile" component={UpadteProfile} exact/>
         <Route path="/forbidden" component={Forbidden} exact/>
         <Route path="/missingDays" component={MissingDaysHours}/>
+        <Route path="/schedule" component={Schedule}/>
         <Route path="" render={props => <Profile {...props}/>} exact/>
 
       </Switch>
