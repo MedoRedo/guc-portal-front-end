@@ -3,8 +3,7 @@ import clsx from 'clsx';
 import PropTypes from 'prop-types';
 import avatar from '../static/images/avatar/1.jpg';
 import {Link} from 'react-router-dom';
-import Alert from '@material-ui/lab/Alert';
-
+import axios from 'axios';
 import {
   Box,
   Button,
@@ -17,7 +16,6 @@ import {
   makeStyles,
   Avatar
 } from '@material-ui/core';
-import axios from 'axios';
 
 const useStyles = makeStyles((theme) => ({
   root: {},
@@ -133,15 +131,7 @@ const ProfileBody = ({ className, ...rest }) => {
           flexWrap="wrap"
           p={2}
         >
-          <Link to={
-            {
-              pathname:"/updateProfile",
-              state:{
-                email:values.email,
-                gender:values.gender
-              }
-            }
-          } className={classes.link}>
+          <Link to="/updateProfile" className={classes.link}>
           <Button
               color="primary"
               variant="contained"
@@ -159,30 +149,34 @@ const ProfileBody = ({ className, ...rest }) => {
               Change Password
             </Button>
           </Link>
-          <Button
-            color="primary"
-            variant="contained"
-            className={classes.button}
-          >
-            Schedule
-          </Button>
-          <Button
-            color="primary"
-            variant="contained"
-            className={classes.button}
-          >
-            Attendance
-          </Button>
-          <Button
-            color="primary"
-            variant="contained"
-            className={classes.button}
-          >
-            Missing Days/Hours
-          </Button>
-          <Link
-            to="signin"
-            className={classes.link}>
+          <Link to="/schedule" className={classes.link}>
+            <Button
+              color="primary"
+              variant="contained"
+              className={classes.button}
+            >
+              Schedule
+            </Button>
+          </Link>
+          <Link to="/attendance" className={classes.link}>
+            <Button
+              color="primary"
+              variant="contained"
+              className={classes.button}
+            >
+              Attendance
+            </Button>
+          </Link>
+          <Link to="/missingDays" className={classes.link}>
+            <Button
+                color="primary"
+                variant="contained"
+                className={classes.button}
+              >
+                Missing Days/Hours
+              </Button>
+          </Link>
+          <Link to="/signin" className={classes.link}>
             <Button
               color="primary"
               variant="contained"
@@ -191,9 +185,7 @@ const ProfileBody = ({ className, ...rest }) => {
               Sign in
             </Button>
           </Link>
-          <Link
-            to="/signout"
-            className={classes.link}>
+          <Link to="/signout" className={classes.link}>
             <Button
               color="primary"
               variant="contained"
