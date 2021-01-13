@@ -18,6 +18,7 @@ import Forbidden from './Forbidden';
 import MissingDaysHours from '../GUCStaffMemberPages/MissingDaysHours';
 import AttendanceForm from '../GUCStaffMemberPages/AttendanceForm';
 import Attendance from '../GUCStaffMemberPages/Attendance';
+import Schedule from '../GUCStaffMemberPages/Schedule'
 
 function Home() {
 
@@ -45,6 +46,7 @@ function Home() {
         <Route path="/missingDays" component={MissingDaysHours} exact/>
         <Route path="/attendanceForm" component={AttendanceForm} exact/>
         <Route path="/attendance" component={Attendance} exact/>
+        <Route path="/schedule" component={Schedule}/>
         <Route path="/" component={Profile} exact/>
         <Route render={() => (<Forbidden showNavBar={showNavBar}/>)}/>
       </Switch>
