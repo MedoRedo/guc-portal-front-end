@@ -63,7 +63,7 @@ function UpdateProfile(props) {
       return;
     }
     try {
-      await axios.post('http://localhost:5000/updateProfile',
+      const res = await axios.post('http://localhost:5000/updateProfile',
       {
         email : email_c ? email : undefined,
         gender : gender_c ? gender : undefined
@@ -73,6 +73,8 @@ function UpdateProfile(props) {
           'auth_token' : localStorage.getItem('auth_token')
         }
       })
+      if(res.data.email !== undefined)
+        localStorage.setItem('userEmail', res.data.email);
       setIsValid(true);
       setSelected(true);
       history.push('/');
