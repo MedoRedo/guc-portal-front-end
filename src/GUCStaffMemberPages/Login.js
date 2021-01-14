@@ -53,7 +53,10 @@ function Login(props) {
       localStorage.setItem('userId', response.data.id);
       localStorage.setItem('userEmail', response.data.email)
       setIsValid(true);
-      history.push('/');
+      if(response.data.firstLogin === undefined || response.data.firstLogin === true)
+        history.push('/changePassword');
+      else
+        history.push('/');
     }
     catch(e) {
       setIsValid(false);

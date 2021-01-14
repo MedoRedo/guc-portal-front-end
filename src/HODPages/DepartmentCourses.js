@@ -19,6 +19,8 @@ const Courses = (props) => {
     const classes = useStyles();
     const history = useHistory();
     const [courses, setCourses] = useState([]);
+    const [ready, setReady] = useState(false);
+
     useEffect(() => {
         // console.log('componentDidMount');
         axios.get("http://localhost:5000/HOD/courses",{
@@ -26,10 +28,10 @@ const Courses = (props) => {
               auth_token : localStorage.getItem('auth_token')
             }
           }).then(res => {
-            console.log(res.data)
-            setCourses(
-                res.data
-            );                    
+            if(res.data !== 'invalid data'){
+                setCourses(res.data);
+                setReady(true);
+            }                    
         });        
     },[]);
 
@@ -37,7 +39,7 @@ const Courses = (props) => {
         history.push(`/courses/${id}`);
     }
     return(
-        courses.length !== 0&&<>
+        ready &&<>
         <Typography component="h2" variant="h6" color="primary" className={classes.title} align='center'>
             Department Courses
         </Typography>
