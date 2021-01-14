@@ -96,7 +96,9 @@ const SentRequestsBody = (props) => {
             'auth_token' : localStorage.getItem('auth_token')
           }
         });
-        const req = await axios.get('http://localhost:5000/submittedRequests', {
+        const req = await axios.post('http://localhost:5000/submittedRequests', {
+            status: status,
+        }, {
             headers : {
                 'auth_token' : localStorage.getItem('auth_token')
             }
@@ -138,7 +140,8 @@ const SentRequestsBody = (props) => {
                         <TableCell className={classes.cell}>{request.type}</TableCell>
                         <TableCell className={classes.cell}>{request.sender}</TableCell>
                         <TableCell className={classes.cell}>{request.receiver}</TableCell>
-                        <TableCell className={classes.cell}><Button variant='outlined' color='primary' onClick={()=>{handleClick(request.id)}}>Cancel Request</Button></TableCell>
+                        {status === 'Pending' && <TableCell className={classes.cell}><Button variant='outlined' color='primary' onClick={()=>{handleClick(request.id)}}>Cancel Request</Button></TableCell>
+                        }
                     </TableRow>
                 })}
             </TableBody>
@@ -170,7 +173,7 @@ const SentRequestsBody = (props) => {
                         <TableCell className={classes.cell}>{request.type}</TableCell>
                         <TableCell className={classes.cell}>{request.sender}</TableCell>
                         <TableCell className={classes.cell}>{request.receiver}</TableCell>
-                        <TableCell className={classes.cell}><Button variant='outlined' color='primary' onClick={()=>{handleClick(request.id)}}>Cancel Request</Button></TableCell>
+                        {/* <TableCell className={classes.cell}><Button variant='outlined' color='primary' onClick={()=>{handleClick(request.id)}}>Cancel Request</Button></TableCell> */}
                     </TableRow>
                 })}
             </TableBody>
