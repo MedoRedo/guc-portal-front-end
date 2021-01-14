@@ -83,10 +83,10 @@ const InstructorCourseInfo = (props) =>{
         history.push(`/profile/${profileId}`);
     }
     const goToSlots = ()=>{
-        history.push(`/course/${courseId.id}/slots`);
+        history.push(`/courses/${courseId.id}/slots`);
     }
     const AssignCoordinator = ()=>{
-        history.push(`/course/${courseId.id}/CoordinatorAssigning`);
+        history.push(`/courses/${courseId.id}/CoordinatorAssigning`);
     }
     const TAs = ()=>{ 
         if(tas.length!==0) return (<Grid className={classes.Grid} item xs={12} md={6}>
