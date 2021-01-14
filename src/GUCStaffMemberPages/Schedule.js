@@ -85,7 +85,7 @@ const Schedule = ({ className, ...rest }) => {
     let res = [];
     for (let day = 0; day < 6; day++) {
         let slots = [];
-        for (let slot = 1; slot < 6; slot++) {
+        for (let slot = 0; slot < 5; slot++) {
             
             let temp = search(day, slot, schedule);
             // console.log(temp)
