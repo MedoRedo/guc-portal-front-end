@@ -8,7 +8,7 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Typography from '@material-ui/core/Typography';
 import { Button } from '@material-ui/core';
-import {useHistory} from 'react-router-dom'
+import {Redirect, useHistory, useLocation} from 'react-router-dom';
 const useStyles = makeStyles((theme) => ({
     title: {margin: '5px'},
     table: {margin: 'auto'},
@@ -38,7 +38,11 @@ const Courses = (props) => {
     const handleClick = (id) => {
         history.push(`/courses/${id}`);
     }
+    const handleTeachingAssignments = (id) => {
+        history.push(`/courses/${id}/teacchingAssignments`);
+    }
     return(
+        localStorage.getItem('auth_token') === null ? <Redirect to="/login"/> : 
         ready &&<>
         <Typography component="h2" variant="h6" color="primary" className={classes.title} align='center'>
             Department Courses
@@ -55,7 +59,10 @@ const Courses = (props) => {
             <TableBody>
                 {courses.map(course => {
                     return <TableRow key={course.id}>
-                        <TableCell className={classes.cell}><Button variant='outlined' color='primary' onClick={() => handleClick(course.id)}>View Course</Button></TableCell>
+                        <TableCell className={classes.cell}>
+                            <Button variant='outlined' color='primary' onClick={() => handleClick(course.id)}>View Course</Button>
+                            <Button variant='outlined' color='primary' onClick={() => handleTeachingAssignments(course.id)}>View Teaching assignments</Button>
+                        </TableCell>
                         <TableCell className={classes.cell}>{course.id}</TableCell>
                         <TableCell className={classes.cell}>{course.name}</TableCell>
                     </TableRow>

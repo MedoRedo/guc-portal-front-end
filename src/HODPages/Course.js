@@ -12,6 +12,7 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Typography from '@material-ui/core/Typography';
 import { Button } from '@material-ui/core';
+import {Redirect, useHistory, useLocation} from 'react-router-dom';
 
 
 
@@ -37,6 +38,7 @@ export default function Course(props) {
     const[course, setCourse] = useState({});
     const[TAs, setTAs] = useState([]);
     const[instructors, setInstructors] = useState([]);
+    const[ready, setReady] = useState(false);
 
     const handleClickAssign = () => {
         const { location, history } = props;
@@ -62,15 +64,20 @@ export default function Course(props) {
             }
           })
         .then(res =>{
-            console.log(res.data);
-            const data = res.data;
-            setCourse({id: data.id, name: data.name});
-            setTAs(data.TAs);
-            setInstructors(data.instructors);
+            if(res.data !== 'invalid data'){
+                console.log(res.data);
+                const data = res.data;
+                setCourse({id: data.id, name: data.name});
+                setTAs(data.TAs);
+                setInstructors(data.instructors);
+                setReady(true);    
+            }
         })
     }, [])
 
     return(
+        localStorage.getItem('auth_token') === null ? <Redirect to="/login"/> : 
+        ready &&
     <>
         <Card className={classes.root}>
             <CardContent>
