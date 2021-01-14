@@ -63,12 +63,17 @@ const useStyles = makeStyles((theme) => ({
 
 const SentRequestsBody = (props) => {
   const classes = useStyles();
+  const location = useLocation();
+  const status = location.state.status;
   const [requests, setRequests] = useState([]);
   const [ready, setReady] = useState(false);
 
   useEffect(async () => {
     try{
-    const user = await axios.get('http://localhost:5000/submittedRequests', {
+    const user = await axios.post('http://localhost:5000/submittedRequests',{
+        status: status,
+    },
+    {
       headers : {
         'auth_token' : localStorage.getItem('auth_token')
       }
@@ -101,11 +106,11 @@ const SentRequestsBody = (props) => {
   }
 
   return (
-    localStorage.getItem('auth_token') === null ? <Redirect to="/login"/> : 
+    localStorage.getItem('auth_token') === null ? <Redirect to="/login"/> : status === undefined ? <Redirect to="/requests"/> :
     ready &&
     <>
         <Typography component="h2" variant="h6" color="primary" className={classes.title} align='center'>
-            Pending Requests
+            {status} Requests
         </Typography>
         <TableContainer className={classes.tableContainer} component={Paper}>
         <Table size="small" aria-label="a dense table">

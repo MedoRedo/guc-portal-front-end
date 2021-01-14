@@ -127,8 +127,8 @@ const AddRequest = (props) => {
         <Button className={classes.button} variant='outlined' color='primary' onClick={()=>{setRequestType('MaternityLeave')}}>Maternity Leave</Button>
         <Button className={classes.button} variant='outlined' color='primary' onClick={()=>{setRequestType('CompensationLeave')}}>Compensation Leave</Button>
       </Box>
-      {/* {requestType === 'ReplacementSlot'} && */}
-      <TextField
+      {(requestType === 'ReplacementSlot' || requestType === 'SlotLinking') &&  
+      (<TextField
             variant="outlined"
             margin="normal"
             fullWidth
@@ -137,8 +137,10 @@ const AddRequest = (props) => {
             name="Course ID"
             autoFocus
             onChange={(event) => {setCourseID(event.target.value)}}
-        />
-        <TextField
+        />)
+      }
+        {(requestType === 'ReplacementSlot') &&
+            <TextField
             variant="outlined"
             margin="normal"
             fullWidth
@@ -147,8 +149,9 @@ const AddRequest = (props) => {
             type="Receiver ID"
             id="Receiver ID"
             onChange={(event) => {setReceiverID(event.target.value)}}
-        />
-        <TextField
+        />}
+        {(requestType === 'ReplacementSlot' || requestType.includes('Leave')) &&
+            <TextField
             variant="outlined"
             margin="normal"
             fullWidth
@@ -157,8 +160,9 @@ const AddRequest = (props) => {
             type="Start Date"
             id="Start Date"
             onChange={(event) => {setStartDate(event.target.value)}}
-        />
-        <TextField
+        />}
+        {(requestType === 'SlotLinking' || requestType === 'ChangeDayOff' || requestType === 'CompensationLeave') &&
+            <TextField
             variant="outlined"
             margin="normal"
             fullWidth
@@ -167,8 +171,9 @@ const AddRequest = (props) => {
             type="Day"
             id="Day"
             onChange={(event) => {setDay(event.target.value)}}
-        />
-        <TextField
+        />}
+        {(requestType === 'ReplacementSlot' || requestType === 'SlotLinking') &&
+            <TextField
             variant="outlined"
             margin="normal"
             fullWidth
@@ -177,7 +182,8 @@ const AddRequest = (props) => {
             type="Slot"
             id="Slot"
             onChange={(event) => {setSlot(event.target.value)}}
-        />
+        />}
+        {(requestType !== undefined && requestType !== '') &&
         <TextField
             variant="outlined"
             margin="normal"
@@ -187,8 +193,9 @@ const AddRequest = (props) => {
             type="Content"
             id="Content"
             onChange={(event) => {setContent(event.target.value)}}
-        />
-        <TextField
+        />}
+        {(requestType !== undefined && requestType !== '') &&
+            <TextField
             variant="outlined"
             margin="normal"
             fullWidth
@@ -197,7 +204,8 @@ const AddRequest = (props) => {
             type="Attachment URL"
             id="Attachment URL"
             onChange={(event) => {setAttachmentURL(event.target.value)}}
-        />
+        />}
+        {(requestType.includes('Leave') && requestType !== 'CompensationLeave') &&
         <TextField
             variant="outlined"
             margin="normal"
@@ -207,7 +215,7 @@ const AddRequest = (props) => {
             type="Duration"
             id="Duration"
             onChange={(event) => {setDuration(event.target.value)}}
-        />
+        />}
         <Button
               color="primary"
               variant="contained"
