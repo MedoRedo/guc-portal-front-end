@@ -66,10 +66,13 @@ const SentRequestsBody = (props) => {
   const location = useLocation();
   const status = location.state.status;
   const [requests, setRequests] = useState([]);
+  const [incomingRequests, setIncomingRequests] = useState([]);
+  const [outgoingRequests, setOutgoingRequests] = useState([]);
   const [ready, setReady] = useState(false);
 
   useEffect(async () => {
     try{
+        // console.log(status + 'hereeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee')
     const user = await axios.post('http://localhost:5000/submittedRequests',{
         status: status,
     },
@@ -78,8 +81,8 @@ const SentRequestsBody = (props) => {
         'auth_token' : localStorage.getItem('auth_token')
       }
     });
-    // console.log(user.data.requests + 'hereeeeeeeeeeeeeeeee');
     setRequests(user.data.requests === undefined ? [] : user.data.requests);
+    console.log(user.data.requests)
     setReady(true);
     }catch(e){
         console.log(e)
@@ -93,7 +96,9 @@ const SentRequestsBody = (props) => {
             'auth_token' : localStorage.getItem('auth_token')
           }
         });
-        const req = await axios.get('http://localhost:5000/submittedRequests', {
+        const req = await axios.post('http://localhost:5000/submittedRequests', {
+            status: status,
+        }, {
             headers : {
                 'auth_token' : localStorage.getItem('auth_token')
             }
@@ -110,7 +115,7 @@ const SentRequestsBody = (props) => {
     ready &&
     <>
         <Typography component="h2" variant="h6" color="primary" className={classes.title} align='center'>
-            {status} Requests
+            Outgoing {status} Requests
         </Typography>
         <TableContainer className={classes.tableContainer} component={Paper}>
         <Table size="small" aria-label="a dense table">
@@ -128,14 +133,47 @@ const SentRequestsBody = (props) => {
 
             <TableBody>
                 {requests.map(request => {
-                    return <TableRow key={request.id}>
+                    return localStorage.getItem('userId') === request.sender && <TableRow key={request.id}>
                         <TableCell className={classes.cell}>{request.id}</TableCell>
                         <TableCell className={classes.cell}>{request.status}</TableCell>
-                        <TableCell className={classes.cell}>{request.submissionDate.split('T')[0]}</TableCell>
+                        <TableCell className={classes.cell}>{Date(request.submissionDate).toString()}</TableCell>
                         <TableCell className={classes.cell}>{request.type}</TableCell>
                         <TableCell className={classes.cell}>{request.sender}</TableCell>
                         <TableCell className={classes.cell}>{request.receiver}</TableCell>
-                        <TableCell className={classes.cell}><Button variant='outlined' color='primary' onClick={()=>{handleClick(request.id)}}>Cancel Request</Button></TableCell>
+                        {status === 'Pending' && <TableCell className={classes.cell}><Button variant='outlined' color='primary' onClick={()=>{handleClick(request.id)}}>Cancel Request</Button></TableCell>
+                        }
+                    </TableRow>
+                })}
+            </TableBody>
+        </Table>
+        </TableContainer>
+        <Typography component="h2" variant="h6" color="primary" className={classes.title} align='center'>
+            Incoming {status} Requests
+        </Typography>
+        <TableContainer className={classes.tableContainer} component={Paper}>
+        <Table size="small" aria-label="a dense table">
+            <TableHead>
+                <TableRow>
+                    <TableCell className={classes.headCell}>Request ID</TableCell>
+                    <TableCell className={classes.headCell}>Request Status</TableCell>
+                    <TableCell className={classes.headCell}>Submission Date</TableCell>
+                    <TableCell className={classes.headCell}>Request Type</TableCell>
+                    <TableCell className={classes.headCell}>Sender ID</TableCell>
+                    <TableCell className={classes.headCell}>Receiver ID</TableCell>
+                    <TableCell className={classes.headCell}></TableCell>
+                </TableRow>
+            </TableHead>
+
+            <TableBody>
+                {requests.map(request => {
+                    return localStorage.getItem('userId') === request.receiver && <TableRow key={request.id}>
+                        <TableCell className={classes.cell}>{request.id}</TableCell>
+                        <TableCell className={classes.cell}>{request.status}</TableCell>
+                        <TableCell className={classes.cell}>{Date(request.submissionDate).toString()}</TableCell>
+                        <TableCell className={classes.cell}>{request.type}</TableCell>
+                        <TableCell className={classes.cell}>{request.sender}</TableCell>
+                        <TableCell className={classes.cell}>{request.receiver}</TableCell>
+                        {/* <TableCell className={classes.cell}><Button variant='outlined' color='primary' onClick={()=>{handleClick(request.id)}}>Cancel Request</Button></TableCell> */}
                     </TableRow>
                 })}
             </TableBody>

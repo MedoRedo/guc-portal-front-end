@@ -216,14 +216,15 @@ const AddRequest = (props) => {
             id="Duration"
             onChange={(event) => {setDuration(event.target.value)}}
         />}
-        <Button
+        {(requestType !== undefined && requestType !== '') &&
+            <Button
               color="primary"
               variant="contained"
               className={classes.button}
               onClick={handleSubmit}
         >
               Submit
-        </Button>
+        </Button>}
 
       </div>    
     </Container>

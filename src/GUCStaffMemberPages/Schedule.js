@@ -123,6 +123,8 @@ const Schedule = ({ className, ...rest }) => {
 
   return (
     localStorage.getItem('auth_token') === null ? <Redirect to="/login"/> : 
+    localStorage.getItem('userId').charAt(0) === 'h' ? 
+    <Redirect to="/forbidden"/>:
     ready &&
     <form
       autoComplete="off"
