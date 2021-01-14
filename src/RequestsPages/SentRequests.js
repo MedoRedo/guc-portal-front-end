@@ -52,6 +52,7 @@ const useStyles = makeStyles((theme) => ({
 
 const SentRequests = ({ className, ...rest }) => {
   const classes = useStyles();
+  let history = useHistory();
 
   return (
     localStorage.getItem('auth_token') === null ? <Redirect to="/login"/> : 
@@ -62,33 +63,48 @@ const SentRequests = ({ className, ...rest }) => {
           flexWrap="wrap"
           p={2}
         >
-          <Link to="/sentRequestsBody" className={classes.link}>
+          {/* <Link to="/sentRequestsBody" className={classes.link}> */}
           <Button
               color="primary"
               variant="contained"
               className={classes.button}
+              onClick={() => {
+                history.push("/sentRequestsBody", {
+                  status: 'Accepted'
+                });
+              }}
             >
               Accepted Requests
             </Button>
-          </Link>
-          <Link to="/sentRequestsBody" className={classes.link}>
+          {/* </Link> */}
+          {/* <Link to="/sentRequestsBody" className={classes.link}> */}
             <Button
               color="primary"
               variant="contained"
               className={classes.button}
+              onClick={() => {
+                history.push("/sentRequestsBody", {
+                  status: 'Rejected'
+                });
+              }}
             >
               Rejected Requests
             </Button>
-          </Link>
-          <Link to="/sentRequestsBody" className={classes.link}>
+          {/* </Link> */}
+          {/* <Link to="/sentRequestsBody" className={classes.link}> */}
             <Button
               color="primary"
               variant="contained"
               className={classes.button}
+              onClick={() => {
+                history.push("/sentRequestsBody", {
+                  status: 'Pending'
+                });
+              }}
             >
               Pending Requests
             </Button>
-          </Link>
+          {/* </Link> */}
           <Link to="/addRequest" className={classes.link}>
             <Button
               color="primary"
