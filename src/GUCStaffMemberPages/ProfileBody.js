@@ -132,15 +132,18 @@ function ProfileBody(props) {
               Change Password
             </Button>
           </Link>
-          <Link to="/schedule" className={classes.link}>
-            <Button
-              color="primary"
-              variant="contained"
-              className={classes.button}
-            >
-              Schedule
-            </Button>
-          </Link>
+          {
+            localStorage.getItem('userId').charAt(0) === 'a' &&
+            <Link to="/schedule" className={classes.link}>
+              <Button
+                color="primary"
+                variant="contained"
+                className={classes.button}
+              >
+                Schedule
+              </Button>
+            </Link>
+          }
           <Link to="/attendanceForm" className={classes.link}>
             <Button
               color="primary"
