@@ -70,6 +70,7 @@ const SentRequestsBody = (props) => {
 
   useEffect(async () => {
     try{
+        // console.log(status + 'hereeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee')
     const user = await axios.post('http://localhost:5000/submittedRequests',{
         status: status,
     },
@@ -78,8 +79,8 @@ const SentRequestsBody = (props) => {
         'auth_token' : localStorage.getItem('auth_token')
       }
     });
-    // console.log(user.data.requests + 'hereeeeeeeeeeeeeeeee');
     setRequests(user.data.requests === undefined ? [] : user.data.requests);
+    console.log(user.data.requests)
     setReady(true);
     }catch(e){
         console.log(e)
@@ -131,7 +132,7 @@ const SentRequestsBody = (props) => {
                     return <TableRow key={request.id}>
                         <TableCell className={classes.cell}>{request.id}</TableCell>
                         <TableCell className={classes.cell}>{request.status}</TableCell>
-                        <TableCell className={classes.cell}>{request.submissionDate.split('T')[0]}</TableCell>
+                        <TableCell className={classes.cell}>{Date(request.submissionDate).toString()}</TableCell>
                         <TableCell className={classes.cell}>{request.type}</TableCell>
                         <TableCell className={classes.cell}>{request.sender}</TableCell>
                         <TableCell className={classes.cell}>{request.receiver}</TableCell>
