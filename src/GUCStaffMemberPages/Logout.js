@@ -16,6 +16,7 @@ function Logout(props) {
       });
       localStorage.removeItem('auth_token'); 
       localStorage.removeItem('userId');
+      localStorage.removeItem('userEmail');
       history.push('/');     
     }
     catch(e) {

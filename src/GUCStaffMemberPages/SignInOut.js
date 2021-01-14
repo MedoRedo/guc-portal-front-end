@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState} from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import Alert from '@material-ui/lab/Alert';
@@ -36,14 +36,13 @@ function SignInOut(props) {
   const [email, setEmail] = useState("");
   const [isValid, setIsValid] = useState(true);
   let history = useHistory();
-  let userEmail = "";
   const location = useLocation();
   const handleEmail = (event) => {
     setEmail(event.target.value);
   }
   const handleSubmit = async() => {
     try {
-        if(email !== userEmail) {
+        if(email !== localStorage.getItem('userEmail')) {
             setIsValid(false);
             return;
         }
@@ -59,14 +58,6 @@ function SignInOut(props) {
       console.log(e);
     }
   }
-  useEffect(async () => {
-    const user = await axios.get('http://localhost:5000/profile', {
-      headers : {
-        'auth_token' : localStorage.getItem('auth_token')
-      }
-    });
-    userEmail = user.data.email;
-  })
   return (
     localStorage.getItem('auth_token') === null ? <Redirect to="/login"/> :
     <Container component="main" maxWidth="xs">
