@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Login from '../GUCStaffMemberPages/Login';
 import Profile from '../GUCStaffMemberPages/Profile';
-import Requests from "../HODPages/Requests";
+import Requests from "../RequestsPages/ViewPendingRequests";
 import AllCourses from '../CommonCourses/Courses';
 import InstructorCourseInfo from '../InstructorPages/CourseInfoPage'
 import Course from "../HODPages/Course";
