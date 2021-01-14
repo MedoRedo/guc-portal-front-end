@@ -21,6 +21,7 @@ import MissingDaysHours from '../GUCStaffMemberPages/MissingDaysHours';
 import AttendanceForm from '../GUCStaffMemberPages/AttendanceForm';
 import Attendance from '../GUCStaffMemberPages/Attendance';
 import Schedule from '../GUCStaffMemberPages/Schedule'
+import AssignSlot from '../InstructorPages/SlotAssigningPage';
 
 function Home() {
 
@@ -42,8 +43,9 @@ function Home() {
         <Route path="/changePassword" component={ChangePassword} exact/>
         <Route path="/courses/:id/instructor" component={InstructorCourseInfo} exact/>;
         <Route path="/profile/:id" component={ViewProfile} exact/>
-        <Route path="/course/:courseId/CoordinatorAssigning" component={AssignCoordinator} exact />
-        <Route path="/course/:courseId/slots" component={InstructorSlots} exact />
+        <Route path="/courses/:courseId/CoordinatorAssigning" component={AssignCoordinator} exact />
+        <Route path="/courses/:courseId/slots" component={InstructorSlots} exact />
+        <Route path="/courses/:courseId/slots/:slotId" component={AssignSlot} exact/>
         <Route path="/signin" component={SignInOut} exact/>
         <Route path="/signout" component={SignInOut} exact/>
         <Route path="/updateProfile" component={UpadteProfile} exact/>
