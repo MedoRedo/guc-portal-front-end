@@ -1,7 +1,7 @@
 import React,{ useState, useEffect} from "react";
 import axios from "axios";
 import { Table, TableBody, TableCell, TableHead, TableRow, makeStyles, Button} from "@material-ui/core";
-import { useHistory } from "react-router-dom";
+import {Redirect, useHistory, useLocation} from 'react-router-dom';
 const useStyles = makeStyles((theme) =>(
     {
         root: {
@@ -23,6 +23,7 @@ const days = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Satur
 export default function Assign(props) {
     const classes = useStyles();
     const[instructors, setInstructors] = useState([]);
+    const[ready, setReady] = useState(false);
     let history = useHistory();
 
     useEffect(()=>{
@@ -31,7 +32,10 @@ export default function Assign(props) {
                 auth_token : localStorage.getItem('auth_token')
             }  
         }).then((res)=>{
-            setInstructors(res.data)            
+            if(res.status == 200){
+                setInstructors(res.data);            
+                setReady(true);
+            }
         })
     },[])
 
@@ -47,7 +51,11 @@ export default function Assign(props) {
         })
     }
 
-    return <>
+    return(
+        localStorage.getItem('auth_token') === null ? <Redirect to="/login"/> : 
+        ready &&
+    
+     <>
         <Table size="small" className={classes.table}>
             <TableHead>
                 <TableRow>
@@ -75,5 +83,5 @@ export default function Assign(props) {
         </Table>
 
     </>
-
+    );
 }
