@@ -68,7 +68,7 @@ const SentRequestsBody = (props) => {
 
   useEffect(async () => {
     try{
-    const user = await axios.get('http://localhost:5000/HOD/viewChangeDayOffRequests', {
+    const user = await axios.get('https://gucportalguc.herokuapp.com/HOD/viewChangeDayOffRequests', {
       headers : {
         'auth_token' : localStorage.getItem('auth_token')
       }
