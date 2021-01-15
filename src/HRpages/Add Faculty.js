@@ -5,7 +5,7 @@ import axios from 'axios';
 export default function App() {
   const { register, handleSubmit } = useForm();
 
-  const onSubmit = (data) => axios.post("http://localhost:5000/addLocation",{
+  const onSubmit = (data) => axios.post("https://gucportalguc.herokuapp.com/addLocation",{
     headers : {
       auth_token : localStorage.getItem('auth_token')
     }
