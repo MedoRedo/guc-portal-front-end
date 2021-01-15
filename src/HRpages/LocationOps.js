@@ -1,5 +1,6 @@
 
 import { makeStyles } from '@material-ui/core/styles';
+import TextField from '@material-ui/core/TextField';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
@@ -11,12 +12,15 @@ import React, { useContext, useEffect, useState } from 'react';
 import axios from 'axios';
 import Button from '@material-ui/core/Button';
 import {Redirect} from 'react-router-dom';
+import Input from '@material-ui/core/Input';
 
 const useStyles = makeStyles({
   table: {
     minWidth: 650,
   },
 });
+
+
 
 // <Button variant='outlined' color='primary' onClick={() => handleClick(123)}> Delete Location</Button>
 
@@ -57,6 +61,8 @@ const handleClickUpdate = async(id) => {
         },
         data: {}
     });
+   
+  
 }
   return (
     <TableContainer component={Paper}>
@@ -68,6 +74,7 @@ const handleClickUpdate = async(id) => {
             <TableCell align="left">Location Type</TableCell>
             <TableCell>Ops</TableCell>
             
+            
           </TableRow>
         </TableHead>
         <TableBody>
@@ -76,9 +83,10 @@ const handleClickUpdate = async(id) => {
               <TableCell component="th" scope="row">
                 {row.name}
               </TableCell>
-              <TableCell align="left">{row.name}</TableCell>
+              <TableCell align="left"><Input defaultValue={row.name} inputProps={{ 'aria-label': 'description' }} /></TableCell>
               <TableCell align="left">{row.capacity}</TableCell>
               <TableCell align="left">{row.type}</TableCell>
+              <TableCell align="left"></TableCell>
               <TableCell><Button variant='outlined' color='primary' onClick={() => handleClickDelete(row.name)}> Delete Location</Button></TableCell>
               <TableCell><Button variant='outlined' color='primary' onClick={() => handleClickUpdate(row.name)}> Update Location</Button></TableCell>
             </TableRow>
@@ -88,3 +96,38 @@ const handleClickUpdate = async(id) => {
     </TableContainer>
   );
 }
+
+
+
+
+
+
+
+
+
+
+
+// import React from 'react';
+// import { makeStyles } from '@material-ui/core/styles';
+
+
+// const useStyles = makeStyles((theme) => ({
+//   root: {
+//     '& > *': {
+//       margin: theme.spacing(1),
+//     },
+//   },
+// }));
+
+// export default function Inputs() {
+//   const classes = useStyles();
+
+//   return (
+//     <form className={classes.root} noValidate autoComplete="off">
+      
+//       <Input placeholder="Placeholder" inputProps={{ 'aria-label': 'description' }} />
+//       <Input defaultValue="Disabled" disabled inputProps={{ 'aria-label': 'description' }} />
+//       <Input defaultValue="Error" error inputProps={{ 'aria-label': 'description' }} />
+//     </form>
+//   );
+// }
