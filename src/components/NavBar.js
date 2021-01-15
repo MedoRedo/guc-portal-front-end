@@ -32,14 +32,16 @@ const NavBar = (props) =>{
     const tabNameToIndex = {
         0: "",
         1: "courses",
-        2: "requests"
+        2: "requests",
+        3: "department"
     };
   
 
     const indexToTabName = {
         profile: 0,
         courses: 1,
-        requests: 2
+        requests: 2,
+        department : 3
     }
 
     const classes = useStyles();
@@ -70,9 +72,10 @@ const NavBar = (props) =>{
                         <Tab icon={<AccountCircle/>}/>
                         <Tab label="Courses" />
                         <Tab label="Requests"/>
+                        <Tab label="Department"/>
                     </Tabs>
                     <IconButton color="inherit" style={{marginRight: '5px'}} onClick={()=>{history.push('/notifications')}}>
-                        <Badge badgeContent={17} color="secondary">
+                        <Badge color="secondary">
                             <NotificationsIcon />
                         </Badge>
                     </IconButton>

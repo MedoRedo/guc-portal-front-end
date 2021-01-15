@@ -39,14 +39,9 @@ import DepartmentMembers from '../InstructorPages/DepartmentMembers';
 import SlotLinkageRequests from '../CoordinatorPages/SlotLinkageRequests'
 
 function Home() {
-
-  const [visible, setVisible] = useState(true);
-  const showNavBar = (show) => {
-    setVisible(show);
-  }
   return (
     <>
-      {(visible && <NavBar/>)}
+      <NavBar/>
       <Switch>
        <Route path="/hrhome" component={HRbuttons} exact/>
        <Route path="/addLocation" component={AddLocation} exact/>
@@ -60,6 +55,8 @@ function Home() {
        <Route path="/deptOps" component={DeptOps} exact/>
        <Route path="/courseOps" component={CourseOps} exact/>
        <Route path="/memberOps" component={MemberOps} exact/>
+
+       <Route path="/department" component={Notifications} exact/>
 
         <Route path="/login" component={Login} exact/>
         <Route path="/courses" component={AllCourses} exact/>
@@ -86,7 +83,7 @@ function Home() {
         <Route path="/attendance" component={Attendance} exact/>
         <Route path="/schedule" component={Schedule}/>
         <Route path="/" component={Profile} exact/>
-        <Route render={() => (<Forbidden showNavBar={showNavBar}/>)}/>
+        <Route component={Forbidden}/>
       </Switch>
     </>
   );
