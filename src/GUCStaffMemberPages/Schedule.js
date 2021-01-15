@@ -133,7 +133,7 @@ const Schedule = ({ className, ...rest }) => {
       {...rest}
     >
       <Card>
-        <CardHeader
+        {/* <CardHeader
           subheader="Faculty of Media Engineering and Technology"
           title={'ZIAX'}
           titleTypographyProps={{
@@ -143,7 +143,7 @@ const Schedule = ({ className, ...rest }) => {
             variant:"h5"
           }}
           avatar={<Avatar alt="profile picture" src={avatar} style={{width:'5em', height:'5em'}}/>}
-        />
+        /> */}
         <Divider />
         <TableContainer className={classes.tableContainer} component={Paper}>
       <Table size="small" aria-label="a dense table">
