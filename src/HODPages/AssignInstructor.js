@@ -27,7 +27,7 @@ export default function Assign(props) {
     let history = useHistory();
 
     useEffect(()=>{
-        axios.get('http://localhost:5000/HOD/viewStaff', {
+        axios.get('https://gucportalguc.herokuapp.com/HOD/viewStaff', {
             headers : {
                 auth_token : localStorage.getItem('auth_token')
             }  
@@ -40,7 +40,7 @@ export default function Assign(props) {
     },[])
 
     const handleClick = (id) => {
-        axios.post('http://localhost:5000/HOD/assignInstructor', {courseId: props.match.params.id,
+        axios.post('https://gucportalguc.herokuapp.com/HOD/assignInstructor', {courseId: props.match.params.id,
             instructorId: id}
             ,{
             headers : {
