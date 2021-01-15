@@ -154,12 +154,10 @@ const UpdateSlots = (props) =>{
         })
     }
     useEffect(()=>{
-        console.log('here');
         axios.get(`http://localhost:5000/isCoordinator/${courseId.courseId}`,{
             headers : {
               auth_token : localStorage.getItem('auth_token')
             }}).then((res)=>{
-                console.log('i am here');
                 if(res.data.isCoordinator){
                     setAuth(1);
                     axios.get(`http://localhost:5000/courses/${courseId.courseId}/all-slots`,{
