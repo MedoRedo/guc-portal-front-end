@@ -70,10 +70,10 @@ const ProfileBody = ({ className,staticContext, ...rest }) => {
   });
   const [valid,setValid] = useState(0);
   useEffect(()=>{
-         const query1 = axios.get(`http://localhost:5000/instructors/staff-members/${memberId.id}`,{headers : {
+         const query1 = axios.get(`https://gucportalguc.herokuapp.com/instructors/staff-members/${memberId.id}`,{headers : {
             auth_token : localStorage.getItem('auth_token')
           }});
-          const query2 = axios.get(`http://localhost:5000/staff-members/department/${memberId.id}`,{headers : {
+          const query2 = axios.get(`https://gucportalguc.herokuapp.com/staff-members/department/${memberId.id}`,{headers : {
             auth_token : localStorage.getItem('auth_token')
           }});
           Promise.allSettled([query1,query2]).then((res)=>{

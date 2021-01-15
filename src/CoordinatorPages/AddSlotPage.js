@@ -70,7 +70,7 @@ const handleType = (event)=>{
     setType(event.target.value);
 }
     useEffect(()=>{
-        axios.get(`http://localhost:5000/isCoordinator/${params.courseId}`,{
+        axios.get(`https://gucportalguc.herokuapp.com/isCoordinator/${params.courseId}`,{
             headers : {
               auth_token : localStorage.getItem('auth_token')
             }}).then((res)=>{
@@ -88,7 +88,7 @@ const handleType = (event)=>{
             return;
         }
           try {
-      await axios.post('http://localhost:5000/slot/add', {
+      await axios.post('https://gucportalguc.herokuapp.com/slot/add', {
       day:mapfromDaytoNum(day),
       period:period,
       location:location,

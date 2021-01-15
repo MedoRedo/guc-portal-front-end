@@ -43,7 +43,7 @@ const SlotRequest    = (props)=>{
     const [comment,setComment] = useState("");
     const [status,setStatus] = useState("");
     const handleClick = (response)=>{
-        fetch(`http://localhost:5000/coordinator/courses/${params.courseId}`,{
+        fetch(`https://gucportalguc.herokuapp.com/coordinator/courses/${params.courseId}`,{
         method:'PATCH',
         headers:{
             'Content-Type':'application/json',
@@ -56,7 +56,7 @@ const SlotRequest    = (props)=>{
         })
     }).then((res)=>{
         setStatus(response);
-        axios.get(`http://localhost:5000/coordinator/courses/${params.courseId}/slot-linking-requests`,{headers : {
+        axios.get(`https://gucportalguc.herokuapp.com/coordinator/courses/${params.courseId}/slot-linking-requests`,{headers : {
             auth_token : localStorage.getItem('auth_token')
             }}).then( 
             (res)=>{
@@ -66,7 +66,7 @@ const SlotRequest    = (props)=>{
         ).catch((err)=>{
             console.log(err);
         });
-        axios.get(`http://localhost:5000/coordinator/courses/${params.courseId}/non-pending-slot-linking-requests`,{headers : {
+        axios.get(`https://gucportalguc.herokuapp.com/coordinator/courses/${params.courseId}/non-pending-slot-linking-requests`,{headers : {
             auth_token : localStorage.getItem('auth_token')
             }}).then( 
             (res)=>{

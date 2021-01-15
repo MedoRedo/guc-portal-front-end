@@ -65,7 +65,7 @@ const useStyles = makeStyles((theme) => ({
     const[valid,setValid] = useState(0);
     const [unAssignedSlot,setUnAssignedSlot] = useState([]);
     useEffect(()=>{
-        axios.get(`http://localhost:5000/courses/${params.courseId}/slots-assignment`,{headers : {
+        axios.get(`https://gucportalguc.herokuapp.com/courses/${params.courseId}/slots-assignment`,{headers : {
             auth_token : localStorage.getItem('auth_token')
             }}).then( 
             (res)=>{
@@ -80,7 +80,7 @@ const useStyles = makeStyles((theme) => ({
         })
     },[]);
     useEffect(()=>{
-        axios.get(`http://localhost:5000/instructors/courses/${params.courseId}/unassigned-slots`,{headers : {
+        axios.get(`https://gucportalguc.herokuapp.com/instructors/courses/${params.courseId}/unassigned-slots`,{headers : {
             auth_token : localStorage.getItem('auth_token')
             }}).then( 
             (res)=>{

@@ -68,7 +68,7 @@ const UpdateSlots = (props) =>{
         setDay(event.target.value);
     }
     const handleClick = (elem)=>{
-        axios.get(`http://localhost:5000/courses/${courseId.courseId}/slot-info/${elem}`,{
+        axios.get(`https://gucportalguc.herokuapp.com/courses/${courseId.courseId}/slot-info/${elem}`,{
             headers : {
               auth_token : localStorage.getItem('auth_token')
             }}).then((res)=>{
@@ -96,7 +96,7 @@ const UpdateSlots = (props) =>{
             setIsValid(-1);
             return;
         }
-         axios.post(`http://localhost:5000/courses/${courseId.courseId}/slot/update`, {
+         axios.post(`https://gucportalguc.herokuapp.com/courses/${courseId.courseId}/slot/update`, {
             slot:id,
             day:mapfromDaytoNum(day.toLowerCase()),
             period:period,
@@ -130,11 +130,11 @@ const UpdateSlots = (props) =>{
       setType(event.target.value);
     }
     const handleDelete =()=>{
-        axios.delete(`http://localhost:5000/courses/${courseId.courseId}/slot/delete`,{
+        axios.delete(`https://gucportalguc.herokuapp.com/courses/${courseId.courseId}/slot/delete`,{
             data:{slot:id},
             headers:{auth_token : localStorage.getItem('auth_token')}
         }).then((res)=>{
-            axios.get(`http://localhost:5000/courses/${courseId.courseId}/all-slots`,{
+            axios.get(`https://gucportalguc.herokuapp.com/courses/${courseId.courseId}/all-slots`,{
             headers : {
               auth_token : localStorage.getItem('auth_token')
             }}).then((res)=>{
@@ -154,13 +154,13 @@ const UpdateSlots = (props) =>{
         })
     }
     useEffect(()=>{
-        axios.get(`http://localhost:5000/isCoordinator/${courseId.courseId}`,{
+        axios.get(`https://gucportalguc.herokuapp.com/isCoordinator/${courseId.courseId}`,{
             headers : {
               auth_token : localStorage.getItem('auth_token')
             }}).then((res)=>{
                 if(res.data.isCoordinator){
                     setAuth(1);
-                    axios.get(`http://localhost:5000/courses/${courseId.courseId}/all-slots`,{
+                    axios.get(`https://gucportalguc.herokuapp.com/courses/${courseId.courseId}/all-slots`,{
                     headers : {
                     auth_token : localStorage.getItem('auth_token')
                     }}).then((res)=>{

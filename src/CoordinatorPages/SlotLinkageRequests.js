@@ -67,7 +67,7 @@ const useStyles = makeStyles((theme) => ({
     const[valid,setValid] = useState(0);
     const [nonPendRequest,setNonPendRequest] = useState([]);
     useEffect(()=>{
-        axios.get(`http://localhost:5000/coordinator/courses/${params.courseId}/non-pending-slot-linking-requests`,{headers : {
+        axios.get(`https://gucportalguc.herokuapp.com/coordinator/courses/${params.courseId}/non-pending-slot-linking-requests`,{headers : {
             auth_token : localStorage.getItem('auth_token')
             }}).then( 
             (res)=>{
@@ -82,7 +82,7 @@ const useStyles = makeStyles((theme) => ({
         })
     },[]);
     useEffect(()=>{
-        axios.get(`http://localhost:5000/coordinator/courses/${params.courseId}/slot-linking-requests`,{headers : {
+        axios.get(`https://gucportalguc.herokuapp.com/coordinator/courses/${params.courseId}/slot-linking-requests`,{headers : {
             auth_token : localStorage.getItem('auth_token')
             }}).then( 
             (res)=>{

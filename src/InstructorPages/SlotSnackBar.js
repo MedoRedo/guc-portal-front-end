@@ -25,7 +25,7 @@ function SlotSnackbar(props) {
     const courseId =params.courseId;
     const slot = params.slotId;
     console.log(props.memberId);
-    fetch(`http://localhost:5000/academic-members/${props.memberId}/slots/${slot}`,{
+    fetch(`https://gucportalguc.herokuapp.com/academic-members/${props.memberId}/slots/${slot}`,{
         method:'PATCH',
         headers:{
             'Content-Type':'application/json',
