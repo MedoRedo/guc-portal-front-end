@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import clsx from 'clsx';
 import PropTypes from 'prop-types';
 import avatar from '../static/images/avatar/1.jpg';
@@ -26,14 +26,15 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-const notDisplayed = {
-  password: "",
-  attendance : "",
-  startDay : "",
-  loggedIn : "",
-  notifications : "",
-  firstLogin : "",
-  name : ""
+const displayed = {
+  id : "",
+  email : "",
+  gender : "",
+  salary : "",
+  officeLoc : "",
+  leaves : "",
+  department : "",
+  dayOff : ""
 }
 
 const mapNumberToDay = (num) => {
@@ -48,39 +49,15 @@ const mapNumberToDay = (num) => {
   }
 }
 
-const ProfileBody = ({ className, ...rest }) => {
+function ProfileBody(props) {
   const classes = useStyles();
-  const [values, setValues] = useState({
-    id:"ac-1",
-    email:"zizo.1999@live.com",
-    password:"12345",
-    name:"Abdelaziz Adel",
-    gender:"Male",
-    salary:12345.23,
-    dayOff: 6,
-    officeLoc: "c6.201",
-    leaves: 4,
-    attendance:[],
-    startDay: new Date(),
-    loggedIn: true,
-    notifications : [],
-    firstLogin : false,
-    department : "Computer Science"
-  });
-
-  const handleClick = (event) => {
-    // setValues({
-    //   ...values,
-    //   [event.target.name]: event.target.value
-    // });
-  };
-
   const displayData = (profile) => {
     let res = [];
-    for(const elem in profile) {
-      if(notDisplayed[elem] === "")
-        continue;
+    for(const elem of Object.keys(displayed)) {
       const label = elem.charAt(0) === 'o' ? "OFFICE LOCATION" : elem.toUpperCase();
+      let value = profile[elem] === undefined ? " " : (elem === "dayOff" ? mapNumberToDay(profile[elem]) : profile[elem]);
+      if(elem === 'department' && localStorage.getItem('userId').charAt(0) === 'h')
+        value = "Human Resources";
       res[res.length] = (
       <Grid
         item
@@ -90,12 +67,13 @@ const ProfileBody = ({ className, ...rest }) => {
       >
         <TextField
           fullWidth
-          disabled={!(elem === "email" || elem === "gender")}
           label={label}
           name={label.toLowerCase()}
-          onClick={handleClick}
-          value={elem === "dayOff" ? mapNumberToDay(profile[elem]) : profile[elem]}
+          value={value}
           variant="outlined"
+          InputProps={{
+            readOnly:true
+          }}
         />
       </Grid>);
     }
@@ -106,13 +84,12 @@ const ProfileBody = ({ className, ...rest }) => {
     <form
       autoComplete="off"
       noValidate
-      className={clsx(classes.root, className)}
-      {...rest}
+      className={clsx(classes.root, props.className)}
     >
       <Card>
         <CardHeader
-          subheader="Faculty of Media Engineering and Technology"
-          title={values.name}
+          subheader={localStorage.getItem('userId').charAt(0) === 'h' ? "Human Resources" : `Faculty of ${props.values.faculty}`}
+          title={props.values.name}
           titleTypographyProps={{
             variant:"h4"
           }}
@@ -127,7 +104,7 @@ const ProfileBody = ({ className, ...rest }) => {
             container
             spacing={3}
           >
-            {displayData(values)}
+            {displayData(props.values)}
           </Grid>
         </CardContent>
         <Divider />
@@ -137,13 +114,15 @@ const ProfileBody = ({ className, ...rest }) => {
           flexWrap="wrap"
           p={2}
         >
+          <Link to="/updateProfile" className={classes.link}>
           <Button
-            color="primary"
-            variant="contained"
-            className={classes.button}
-          >
-            Update Profile
-          </Button>
+              color="primary"
+              variant="contained"
+              className={classes.button}
+            >
+              Update Profile
+            </Button>
+          </Link>
           <Link to="/changePassword" className={classes.link}>
             <Button
               color="primary"
@@ -153,34 +132,37 @@ const ProfileBody = ({ className, ...rest }) => {
               Change Password
             </Button>
           </Link>
-          <Button
-            color="primary"
-            variant="contained"
-            className={classes.button}
-          >
-            Schedule
-          </Button>
-          <Button
-            color="primary"
-            variant="contained"
-            className={classes.button}
-          >
-            Attendance
-          </Button>
-          <Button
-            color="primary"
-            variant="contained"
-            className={classes.button}
-          >
-            Missing Days/Hours
-          </Button>
-          <Link
-            to={{pathname:"/signin",
-            state:{
-              action:"Sign in",
-              email:values.email
-            }}}
-            className={classes.link}>
+          {
+            localStorage.getItem('userId').charAt(0) === 'a' &&
+            <Link to="/schedule" className={classes.link}>
+              <Button
+                color="primary"
+                variant="contained"
+                className={classes.button}
+              >
+                Schedule
+              </Button>
+            </Link>
+          }
+          <Link to="/attendanceForm" className={classes.link}>
+            <Button
+              color="primary"
+              variant="contained"
+              className={classes.button}
+            >
+              Attendance
+            </Button>
+          </Link>
+          <Link to="/missingDays" className={classes.link}>
+            <Button
+                color="primary"
+                variant="contained"
+                className={classes.button}
+              >
+                Missing Days/Hours
+              </Button>
+          </Link>
+          <Link to="/signin" className={classes.link}>
             <Button
               color="primary"
               variant="contained"
@@ -189,13 +171,7 @@ const ProfileBody = ({ className, ...rest }) => {
               Sign in
             </Button>
           </Link>
-          <Link
-            to={{pathname:"/signout",
-            state:{
-              action:"Sign out",
-              email:values.email
-            }}}
-            className={classes.link}>
+          <Link to="/signout" className={classes.link}>
             <Button
               color="primary"
               variant="contained"

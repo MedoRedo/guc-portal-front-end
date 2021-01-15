@@ -42,11 +42,11 @@ function SignInOut(props) {
   }
   const handleSubmit = async() => {
     try {
-        if(email !== location.state.email) {
+        if(email !== localStorage.getItem('userEmail')) {
             setIsValid(false);
             return;
         }
-        await axios.get(`http://localhost:5000/${location.state.action === 'Sign in' ? 'signin' : 'signout'}`, {
+        await axios.get(`https://gucportalguc.herokuapp.com${location.pathname}`, {
             headers : {
                 'auth_token' : localStorage.getItem('auth_token')
             }
@@ -59,7 +59,7 @@ function SignInOut(props) {
     }
   }
   return (
-    localStorage.getItem('auth_token') === null ? <Redirect to="/"/> :
+    localStorage.getItem('auth_token') === null ? <Redirect to="/login"/> :
     <Container component="main" maxWidth="xs">
       <CssBaseline />
       <div className={classes.paper}>
@@ -67,7 +67,7 @@ function SignInOut(props) {
           <QueryBuilderRounded/>
         </Avatar>
         <Typography component="h1" variant="h5">
-          {location.state.action.toUpperCase()}
+          {location.pathname === "/signin" ? "SIGN IN" : "SIGN OUT"}
         </Typography>
         <form className={classes.form} noValidate>
           <TextField
@@ -92,7 +92,7 @@ function SignInOut(props) {
               className={classes.submit}
               onClick={handleSubmit}
             >
-              {location.state.action}
+              {location.pathname === "/signin" ? "Sign in" : "Sign out"}
             </Button>
         </form>
       </div>

@@ -8,20 +8,21 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Typography from '@material-ui/core/Typography';
 import { Button } from '@material-ui/core';
-import {useHistory} from 'react-router-dom'
+import {useHistory} from 'react-router-dom';
+import SlotRequest from './SlotRequest'
 const useStyles = makeStyles((theme) => ({
     title: {margin: '5px'},
     table: {margin: 'auto'},
     cell :{textAlign:'center'}
 }));
 
-const InstructorCourses = (props) => {
+const CoordinatorCourses = (props) => {
     const classes = useStyles();
     const history = useHistory();
     const [courses, setCourses] = useState([]);
     useEffect(() => {
         // console.log('componentDidMount');
-        axios.get("http://localhost:5000/instructors/courses",{
+        axios.get("http://localhost:5000/coordinator/courses",{
             headers : {
               auth_token : localStorage.getItem('auth_token')
             }
@@ -34,11 +35,11 @@ const InstructorCourses = (props) => {
     },[]);
 
     const handleClick = (id) => {
-        history.push(`courses/${id}/instructor`);
+        history.push(`courses/${id}/co-ordinator`);
     }
     return(courses.length!==0&&<>
         <Typography component="h2" variant="h6" color="primary" className={classes.title} align='center'>
-            Instructor Courses
+            Co-ordinator Courses
         </Typography>
         <Table size="small" className={classes.table}>
             <TableHead>
@@ -59,8 +60,9 @@ const InstructorCourses = (props) => {
                 })}
             </TableBody>
         </Table>
+       
     </>
     ); 
 }
 
-export default InstructorCourses;
+export default CoordinatorCourses;

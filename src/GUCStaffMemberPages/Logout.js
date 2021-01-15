@@ -9,13 +9,14 @@ function Logout(props) {
     
   const handleClick = async (e) => {
     try {
-      await axios.get('http://localhost:5000/logout',{
+      await axios.get('https://gucportalguc.herokuapp.com/logout',{
         headers : {
           auth_token : localStorage.getItem('auth_token')
         }
       });
       localStorage.removeItem('auth_token'); 
       localStorage.removeItem('userId');
+      localStorage.removeItem('userEmail');
       history.push('/');     
     }
     catch(e) {

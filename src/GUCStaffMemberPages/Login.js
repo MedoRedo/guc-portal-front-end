@@ -45,14 +45,18 @@ function Login(props) {
   }
   const handleLogin = async() => {
     try {
-      const response = await axios.post('http://localhost:5000/login',{
+      const response = await axios.post('https://gucportalguc.herokuapp.com/login',{
         email,
         password
       });
       localStorage.setItem('auth_token', response.headers.auth_token);
-      localStorage.setItem('userId', response.data);
+      localStorage.setItem('userId', response.data.id);
+      localStorage.setItem('userEmail', response.data.email)
       setIsValid(true);
-      history.push('/');
+      if(response.data.firstLogin === undefined || response.data.firstLogin === true)
+        history.push('/changePassword');
+      else
+        history.push('/');
     }
     catch(e) {
       setIsValid(false);
