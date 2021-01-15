@@ -84,6 +84,7 @@ const useStyles = makeStyles((theme) => ({
             auth_token : localStorage.getItem('auth_token')
             }}).then( 
             (res)=>{
+                setValid(1);
                 const info = res.data.slotRequests;
                 setPendRequest(info);
             }
@@ -105,7 +106,7 @@ const useStyles = makeStyles((theme) => ({
     const updateAll = (data)=>{
         setNonPendRequest(data);
     }
-    return (localStorage.getItem('auth_token') === null ? <Redirect to="/login"/>:
+    return (localStorage.getItem('auth_token') === null ? <Redirect to="/login"/>:valid===-1?<Redirect to="/forbidden"/>:valid===0? null:
         <Box display='flex' alignItems='center' justifyContent='center' className={classes.Box}>
         <div className={classes.root}>
         <AppBar position="static" color="default">
