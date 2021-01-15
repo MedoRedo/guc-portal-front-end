@@ -21,7 +21,7 @@ function Attendance(props) {
   const location = useLocation();
   useEffect(() => {
     const getAttendanceAll = async() => {
-      const res = await axios.get('http://localhost:5000/attendance', {
+      const res = await axios.get('https://gucportalguc.herokuapp.com/attendance', {
         headers : {
           'auth_token' : localStorage.getItem('auth_token')
         }
@@ -30,7 +30,7 @@ function Attendance(props) {
       SetReady(true);
     }
     const getAttendanceMonth = async(year, month) => {
-      const res = await axios.get(`http://localhost:5000/attendance/${location.state.year}/${location.state.month}`, {
+      const res = await axios.get(`https://gucportalguc.herokuapp.com/attendance/${location.state.year}/${location.state.month}`, {
         headers : {
           'auth_token' : localStorage.getItem('auth_token')
         }

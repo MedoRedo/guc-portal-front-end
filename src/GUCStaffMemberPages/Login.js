@@ -45,7 +45,7 @@ function Login(props) {
   }
   const handleLogin = async() => {
     try {
-      const response = await axios.post('http://localhost:5000/login',{
+      const response = await axios.post('https://gucportalguc.herokuapp.com/login',{
         email,
         password
       });

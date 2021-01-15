@@ -63,7 +63,7 @@ function UpdateProfile(props) {
       return;
     }
     try {
-      const res = await axios.post('http://localhost:5000/updateProfile',
+      const res = await axios.post('https://gucportalguc.herokuapp.com/updateProfile',
       {
         email : email_c ? email : undefined,
         gender : gender_c ? gender : undefined
