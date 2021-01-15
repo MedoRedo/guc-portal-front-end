@@ -6,9 +6,10 @@ import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import Box from '@material-ui/core/Box';
 import SlotRequest from './SlotRequest';
-import Grid from '@material-ui/core/Grid'
+import Grid from '@material-ui/core/Grid';
 import axios from 'axios';
-import { useParams,Redirect } from 'react-router-dom';
+import Button from '@material-ui/core/Button';
+import { useParams,Redirect,useHistory } from 'react-router-dom';
 
 function TabPanel(props) {
     const { children, value, index, ...other } = props;
@@ -60,6 +61,7 @@ const useStyles = makeStyles((theme) => ({
     const classes = useStyles();
     const params = useParams();
     const theme = useTheme();
+    const history = useHistory();
     const [value, setValue] = React.useState(0);
     const [pendRequest,setPendRequest] = useState([]);
     const[valid,setValid] = useState(0);
@@ -106,8 +108,15 @@ const useStyles = makeStyles((theme) => ({
     const updateAll = (data)=>{
         setNonPendRequest(data);
     }
+    const handleUpdateDelete = ()=>{
+        history.push(`/courses/${params.courseId}/co-ordinator/SlotEditing`)
+    }
+    const handleAdd = ()=>{
+        history.push(`/courses/${params.courseId}/co-ordinator/SlotAdding`);
+    }
     return (localStorage.getItem('auth_token') === null ? <Redirect to="/login"/>:valid===-1?<Redirect to="/forbidden"/>:valid===0? null:
         <Box display='flex' alignItems='center' justifyContent='center' className={classes.Box}>
+  
         <div className={classes.root}>
         <AppBar position="static" color="default">
             <Tabs
@@ -122,6 +131,11 @@ const useStyles = makeStyles((theme) => ({
             <Tab label="Non Pending Requests" {...a11yProps(1)} />
             </Tabs>
         </AppBar>
+        <div>
+            <Button className={classes.Box} variant='contained' color='primary' onClick={handleAdd}>Add Slot</Button>
+             <Button className={classes.Box} variant='contained' color='primary' onClick={handleUpdateDelete}>Update Slot</Button>
+             <Button className={classes.Box} variant='contained' color='primary' onClick={handleUpdateDelete}>Delete Slot</Button>
+        </div>
             <TabPanel value={value} index={0} dir={theme.direction} className={classes.TabPanel}>
                 <Grid container display='flex' alignItems='center'>
                 {pendRequest.map((elem)=>{
