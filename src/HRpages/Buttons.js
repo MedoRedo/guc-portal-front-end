@@ -14,7 +14,9 @@ export default function ContainedButtons() {
   const classes = useStyles();
   const history = useHistory();
 
+  
   return (
+    localStorage.getItem('auth_token') === null  && localStorage.getItem('userID').charAt(0) != 'h'? <Redirect to="/login"/> : 
     <div className={classes.root}>
        <Button variant="contained" color="primary" onClick={()=>{
          history.push("/addLocation");
