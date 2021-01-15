@@ -21,7 +21,7 @@ const InstructorCourses = (props) => {
     const [courses, setCourses] = useState([]);
     useEffect(() => {
         // console.log('componentDidMount');
-        axios.get("http://localhost:5000/instructors/courses",{
+        axios.get("https://gucportalguc.herokuapp.com/instructors/courses",{
             headers : {
               auth_token : localStorage.getItem('auth_token')
             }
