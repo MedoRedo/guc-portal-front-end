@@ -16,6 +16,8 @@ export default function App() {
       alert("Course Added Successfully")
       alert(JSON.stringify(data));
       console.log(data)
+  }, reason =>{
+    alert("Course Failed to be Added")
   })
 
   
