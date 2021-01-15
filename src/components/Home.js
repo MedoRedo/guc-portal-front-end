@@ -23,6 +23,7 @@ import Attendance from '../GUCStaffMemberPages/Attendance';
 import Schedule from '../GUCStaffMemberPages/Schedule'
 import AssignSlot from '../InstructorPages/SlotAssigningPage';
 import TeachingAssignments from "../HODPages/TeachingAssignments";
+import DepartmentMembers from '../InstructorPages/DepartmentMembers';
 function Home() {
 
   const [visible, setVisible] = useState(true);
@@ -47,6 +48,7 @@ function Home() {
         <Route path="/courses/:courseId/CoordinatorAssigning" component={AssignCoordinator} exact />
         <Route path="/courses/:courseId/slots" component={InstructorSlots} exact />
         <Route path="/courses/:courseId/slots/:slotId" component={AssignSlot} exact/>
+        <Route path="/instructor/department" component={DepartmentMembers} exact/>
         <Route path="/signin" component={SignInOut} exact/>
         <Route path="/signout" component={SignInOut} exact/>
         <Route path="/updateProfile" component={UpadteProfile} exact/>
