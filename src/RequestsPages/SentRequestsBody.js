@@ -74,7 +74,7 @@ const SentRequestsBody = (props) => {
   useEffect(async () => {
     try{
         // console.log(status + 'hereeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee')
-    const user = await axios.post('http://localhost:5000/submittedRequests',{
+    const user = await axios.post('https://gucportalguc.herokuapp.com/submittedRequests',{
         status: status,
     },
     {
@@ -92,12 +92,12 @@ const SentRequestsBody = (props) => {
 
   const handleClick = async (id) => {
     try{
-        const user = await axios.delete(`http://localhost:5000/request/${id}`, {
+        const user = await axios.delete(`https://gucportalguc.herokuapp.com/request/${id}`, {
           headers : {
             'auth_token' : localStorage.getItem('auth_token')
           }
         });
-        const req = await axios.post('http://localhost:5000/submittedRequests', {
+        const req = await axios.post('https://gucportalguc.herokuapp.com/submittedRequests', {
             status: status,
         }, {
             headers : {
@@ -112,7 +112,7 @@ const SentRequestsBody = (props) => {
   }
 
   const handleAccept = async(id) => {
-      await axios.post('http://localhost:5000/HOD/request',
+      await axios.post('https://gucportalguc.herokuapp.com/HOD/request',
         {requestId: id, status: 'Accepted'},
         {
           headers : {
@@ -127,7 +127,7 @@ const SentRequestsBody = (props) => {
   }
 
   const handleReject = async(id)=>{
-    await axios.post('http://localhost:5000/HOD/request',
+    await axios.post('https://gucportalguc.herokuapp.com/HOD/request',
     {requestId: id, status: 'Rejected'},
     {
       headers : {
