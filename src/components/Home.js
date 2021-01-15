@@ -22,7 +22,8 @@ import AttendanceForm from '../GUCStaffMemberPages/AttendanceForm';
 import Attendance from '../GUCStaffMemberPages/Attendance';
 import Schedule from '../GUCStaffMemberPages/Schedule'
 import AssignSlot from '../InstructorPages/SlotAssigningPage';
-
+import TeachingAssignments from "../HODPages/TeachingAssignments";
+import DepartmentMembers from '../InstructorPages/DepartmentMembers';
 function Home() {
 
   const [visible, setVisible] = useState(true);
@@ -37,6 +38,7 @@ function Home() {
         <Route path="/courses" component={AllCourses} exact/>
         <Route path="/courses/:id?" render={props => <Course {...props}/>} exact/>
         <Route path="/courses/:id?/assign" render={props => <Assign {...props}/>} exact/>
+        <Route path="/courses/:id?/teacchingAssignments" render={props => <TeachingAssignments {...props}/>} exact/>
         <Route path="/requests" component={SentRequests} exact/>
         <Route path="/sentRequestsBody" render={props => <SentRequestsBody {...props}/>} exact/>
         <Route path="/addRequest" component={AddRequest} exact/>
@@ -46,6 +48,7 @@ function Home() {
         <Route path="/courses/:courseId/CoordinatorAssigning" component={AssignCoordinator} exact />
         <Route path="/courses/:courseId/slots" component={InstructorSlots} exact />
         <Route path="/courses/:courseId/slots/:slotId" component={AssignSlot} exact/>
+        <Route path="/instructor/department" component={DepartmentMembers} exact/>
         <Route path="/signin" component={SignInOut} exact/>
         <Route path="/signout" component={SignInOut} exact/>
         <Route path="/updateProfile" component={UpadteProfile} exact/>

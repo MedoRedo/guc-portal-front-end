@@ -81,20 +81,9 @@ const SentRequestsBody = (props) => {
     }
   }, []);
 
-  const handleClick = async (id) => {
+  const handleClick = async (id, status) => {
     try{
-        const user = await axios.delete(`http://localhost:5000/request/${id}`, {
-          headers : {
-            'auth_token' : localStorage.getItem('auth_token')
-          }
-        });
-        const req = await axios.get('http://localhost:5000/submittedRequests', {
-            headers : {
-                'auth_token' : localStorage.getItem('auth_token')
-            }
-        });
-        console.log(req.data.requests + 'hereeeeeeeeeeeeeeeee');
-        setRequests(req.data.requests === undefined ? [] : req.data.requests);
+
     }catch(e){
         console.log(e)
     }
@@ -130,7 +119,10 @@ const SentRequestsBody = (props) => {
                         <TableCell className={classes.cell}>{request.type}</TableCell>
                         <TableCell className={classes.cell}>{request.sender}</TableCell>
                         <TableCell className={classes.cell}>{request.receiver}</TableCell>
-                        <TableCell className={classes.cell}><Button variant='outlined' color='primary' onClick={()=>{handleClick(request.id)}}>Cancel Request</Button></TableCell>
+                        <TableCell className={classes.cell}>
+                            <Button variant='outlined' color='primary' onClick={()=>{handleClick(request.id, 'Accepted')}}>Accept</Button>
+                            <Button variant='outlined' color='secondary' onClick={()=>{handleClick(request.id, 'Rejected')}}>Reject</Button>
+                        </TableCell>
                     </TableRow>
                 })}
             </TableBody>
