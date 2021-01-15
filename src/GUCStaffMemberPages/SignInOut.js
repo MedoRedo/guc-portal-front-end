@@ -46,7 +46,7 @@ function SignInOut(props) {
             setIsValid(false);
             return;
         }
-        await axios.get(`http://localhost:5000${location.pathname}`, {
+        await axios.get(`https://gucportalguc.herokuapp.com${location.pathname}`, {
             headers : {
                 'auth_token' : localStorage.getItem('auth_token')
             }
