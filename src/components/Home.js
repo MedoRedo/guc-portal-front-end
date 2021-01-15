@@ -4,6 +4,7 @@ import Profile from '../GUCStaffMemberPages/Profile';
 import SentRequests from "../RequestsPages/SentRequests";
 import SentRequestsBody from "../RequestsPages/SentRequestsBody";
 import AddRequest from "../RequestsPages/AddRequest";
+import Notifications from "../RequestsPages/Notifications";
 import AllCourses from '../CommonCourses/Courses';
 import InstructorCourseInfo from '../InstructorPages/CourseInfoPage'
 import Course from "../HODPages/Course";
@@ -68,6 +69,7 @@ function Home() {
         <Route path="/requests" component={SentRequests} exact/>
         <Route path="/sentRequestsBody" render={props => <SentRequestsBody {...props}/>} exact/>
         <Route path="/addRequest" component={AddRequest} exact/>
+        <Route path="/notifications" component={Notifications} exact/>
         <Route path="/changePassword" component={ChangePassword} exact/>
         <Route path="/courses/:id/instructor" component={InstructorCourseInfo} exact/>;
         <Route path="/profile/:id" component={ViewProfile} exact/>

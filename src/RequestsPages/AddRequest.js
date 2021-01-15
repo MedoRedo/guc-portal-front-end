@@ -84,27 +84,92 @@ const AddRequest = (props) => {
   const [attachmentURL, setAttachmentURL] = useState('');
   const [duration, setDuration] = useState('');
 
-  const handleClick = async (id) => {
-    try{
-        // const user = await axios.delete(`http://localhost:5000/request/${id}`, {
-        //   headers : {
-        //     'auth_token' : localStorage.getItem('auth_token')
-        //   }
-        // });
-        // const req = await axios.get('http://localhost:5000/submittedRequests', {
-        //     headers : {
-        //         'auth_token' : localStorage.getItem('auth_token')
-        //     }
-        // });
-        // console.log(req.data.requests + 'hereeeeeeeeeeeeeeeee');
-        // setRequests(req.data.requests === undefined ? [] : req.data.requests);
-    }catch(e){
-        console.log(e)
-    }
-  }
-
   const handleSubmit = async () => {
-      //todo
+      try{
+        if(requestType === 'ReplacementSlot'){
+            var timestamp = Date.parse(startDate);
+            var d = new Date(startDate);
+            // console.log(d.getFullYear() + ' ' + d.getMonth() + '  ' + d.getDate())
+            const user = await axios.post('http://localhost:5000/replacement/request',{
+                courseId: courseID,
+                receiver: receiverID,
+                startDate: d,
+                slot: slot,
+                content: content,
+                attachmentURL: attachmentURL
+            },
+            {
+                headers : {
+                    'auth_token' : localStorage.getItem('auth_token')
+                }
+            });
+        }
+        else if (requestType === 'SlotLinking'){
+            // var timestamp = Date.parse(startDate);
+            var d = new Date().setDate(day);
+            const user = await axios.post('http://localhost:5000/slotlinking/request',{
+                courseId: courseID,
+                startDate: d,
+                slot: slot,
+                content: content,
+                attachmentURL: attachmentURL
+            },
+            {
+                headers : {
+                    'auth_token' : localStorage.getItem('auth_token')
+                }
+            });
+        }
+        else if (requestType === 'ChangeDayOff'){
+            // var timestamp = Date.parse(startDate);
+            var d = new Date().setDate(day);
+            const user = await axios.post('http://localhost:5000/changedayoff/request',{
+                dayOff: d,
+                content: content,
+                attachmentURL: attachmentURL
+            },
+            {
+                headers : {
+                    'auth_token' : localStorage.getItem('auth_token')
+                }
+            });
+        }
+        else if (requestType !== undefined && requestType !== ''){
+            var timestamp = Date.parse(startDate);
+            var d = new Date(startDate);
+            let params = {};
+            if(requestType === 'AccidentalLeave' || requestType === 'AnnualLeave' || requestType === 'SickLeave' || requestType === 'MaternityLeave'){
+                params = {
+                    startDate: d,
+                    duration: duration,
+                    content: content,
+                    attachmentURL: attachmentURL,
+                    leaveType: requestType,
+                };
+            }
+            else if(requestType === 'CompensationLeave'){
+                var timestamp2 = Date.parse(day);
+                var d2 = new Date(timestamp2);
+                params = {
+                    startDate: d,
+                    dayOff: d2,
+                    content: content,
+                    attachmentURL: attachmentURL,
+                    leaveType: requestType,
+                };
+            }
+            // else if (requestType === '')
+            const user = await axios.post('http://localhost:5000/leave/request',
+            params,
+            {
+                headers : {
+                    'auth_token' : localStorage.getItem('auth_token')
+                }
+            });
+        }
+      }catch(e){
+          console.log(e)
+      }
   }
 
   return (
@@ -155,10 +220,10 @@ const AddRequest = (props) => {
             variant="outlined"
             margin="normal"
             fullWidth
-            name="Start Date"
-            label="Start Date"
-            type="Start Date"
-            id="Start Date"
+            name="Start Date (MM/DD/YYYY)"
+            label="Start Date (MM/DD/YYYY)"
+            type="Start Date (MM/DD/YYYY)"
+            id="Start Date (MM/DD/YYYY)"
             onChange={(event) => {setStartDate(event.target.value)}}
         />}
         {(requestType === 'SlotLinking' || requestType === 'ChangeDayOff' || requestType === 'CompensationLeave') &&
@@ -166,10 +231,10 @@ const AddRequest = (props) => {
             variant="outlined"
             margin="normal"
             fullWidth
-            name="Day"
-            label="Day"
-            type="Day"
-            id="Day"
+            name={requestType === 'CompensationLeave' ? 'Compensation Date (MM/DD/YYYY)' :"Day (1-6)"}
+            label={requestType === 'CompensationLeave' ? 'Compensation Date (MM/DD/YYYY)' :"Day (1-6)"}
+            type={requestType === 'CompensationLeave' ? 'Compensation Date (MM/DD/YYYY)' :"Day (1-6)"}
+            id={requestType === 'CompensationLeave' ? 'Compensation Date (MM/DD/YYYY)' :"Day (1-6)"}
             onChange={(event) => {setDay(event.target.value)}}
         />}
         {(requestType === 'ReplacementSlot' || requestType === 'SlotLinking') &&
