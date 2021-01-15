@@ -45,7 +45,7 @@ function Home() {
     <>
       <NavBar/>
       <Switch>
-       <Route path="/hrhome" component={HRbuttons} exact/>
+       <Route path="/HR" component={HRbuttons} exact/>
        <Route path="/addLocation" component={AddLocation} exact/>
        <Route path="/addFaculty" component={AddFaculty} exact/>
        <Route path="/addDept" component={AddDept} exact/>
