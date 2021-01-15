@@ -35,7 +35,7 @@ function Profile(props) {
   });
   useEffect(() => {
     const getData = async() => {
-      const res = await axios.get('http://localhost:5000/profile', {
+      const res = await axios.get('https://gucportalguc.herokuapp.com/profile', {
         headers : {
           'auth_token' : localStorage.getItem('auth_token')
         }
@@ -46,12 +46,12 @@ function Profile(props) {
       });
     }
     const getFacultyAndDepartment = () => {
-      const dep = axios.get('http://localhost:5000/departmentId', {
+      const dep = axios.get('https://gucportalguc.herokuapp.com/departmentId', {
         headers : {
           'auth_token' : localStorage.getItem('auth_token')
         }
       })
-      const fac = axios.get('http://localhost:5000/facultyId', {
+      const fac = axios.get('https://gucportalguc.herokuapp.com/facultyId', {
         headers : {
           'auth_token' : localStorage.getItem('auth_token')
         }

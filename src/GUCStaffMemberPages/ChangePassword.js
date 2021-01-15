@@ -51,7 +51,7 @@ function ChangePassword(props) {
     if(newPass !== confirmPass)
       return setIsValid(false);
     try {
-      await axios.post('http://localhost:5000/changePassword', {
+      await axios.post('https://gucportalguc.herokuapp.com/changePassword', {
       oldPass,
       newPass,
       },{
