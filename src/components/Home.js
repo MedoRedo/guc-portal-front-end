@@ -15,6 +15,17 @@ import AssignCoordinator from '../InstructorPages/CoordinatorAssigningPage';
 import InstructorSlots from '../InstructorPages/SlotsPage';
 import SignInOut from '../GUCStaffMemberPages/SignInOut';
 import Assign from "../HODPages/AssignInstructor";
+import LocationOps from "../HRpages/LocationOps";
+import facultyOps from "../HRpages/facultyops";
+import DeptOps from "../HRpages/Deptops";
+import CourseOps from "../HRpages/Courseops";
+import MemberOps from "../HRpages/Staffops";
+import AddLocation from "../HRpages/Add Location";
+import AddFaculty from "../HRpages/Add Faculty";
+import AddDept from "../HRpages/Add Department";
+import AddCourse from "../HRpages/Add Course";
+import AddMember from "../HRpages/AddMember";
+import HRbuttons from "../HRpages/Buttons";
 import UpadteProfile from '../GUCStaffMemberPages/UpdateProfile';
 import Forbidden from './Forbidden';
 import MissingDaysHours from '../GUCStaffMemberPages/MissingDaysHours';
@@ -25,6 +36,7 @@ import AssignSlot from '../InstructorPages/SlotAssigningPage';
 import TeachingAssignments from "../HODPages/TeachingAssignments";
 import DepartmentMembers from '../InstructorPages/DepartmentMembers';
 import SlotLinkageRequests from '../CoordinatorPages/SlotLinkageRequests'
+
 function Home() {
 
   const [visible, setVisible] = useState(true);
@@ -35,6 +47,19 @@ function Home() {
     <>
       {(visible && <NavBar/>)}
       <Switch>
+       <Route path="/hrhome" component={HRbuttons} exact/>
+       <Route path="/addLocation" component={AddLocation} exact/>
+       <Route path="/addFaculty" component={AddFaculty} exact/>
+       <Route path="/addDept" component={AddDept} exact/>
+       <Route path="/addCourse" component={AddCourse} exact/>
+       <Route path="/addMember" component={AddMember} exact/>
+
+       <Route path="/locationOps" component={LocationOps} exact/>
+       <Route path="/facultyOps" component={facultyOps} exact/>
+       <Route path="/deptOps" component={DeptOps} exact/>
+       <Route path="/courseOps" component={CourseOps} exact/>
+       <Route path="/memberOps" component={MemberOps} exact/>
+
         <Route path="/login" component={Login} exact/>
         <Route path="/courses" component={AllCourses} exact/>
         <Route path="/courses/:id?" render={props => <Course {...props}/>} exact/>
