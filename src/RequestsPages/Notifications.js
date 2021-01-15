@@ -69,15 +69,26 @@ const Notifications = (props) => {
 
   useEffect(async () => {
     try{
-        // console.log(status + 'hereeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee')
+      const user = await axios.get('https://gucportalguc.herokuapp.com/notifications', {
+        headers : {
+          'auth_token' : localStorage.getItem('auth_token')
+        }
+      });
+      console.log(user.data.notifications);
+      setNotifications(user.data.notifications);
+      setReady(true);
+      setInterval(async() => {
         const user = await axios.get('https://gucportalguc.herokuapp.com/notifications', {
-            headers : {
-              'auth_token' : localStorage.getItem('auth_token')
-            }
-          });
-          console.log(user.data.notifications);
-          setNotifications(user.data.notifications);
-          setReady(true);
+          headers : {
+            'auth_token' : localStorage.getItem('auth_token')
+          }
+        });
+        console.log(user.data.notifications);
+        setNotifications(user.data.notifications);
+        setReady(true);
+          // console.log(status + 'hereeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee')
+      },10000);
+
     }catch(e){
         console.log(e)
     }

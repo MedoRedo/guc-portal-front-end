@@ -52,7 +52,8 @@ const NavBar = (props) =>{
     
     const handleChange = (event, newValue) => {
         setSelectedTab(newValue);
-        history.push(`/${tabNameToIndex[newValue]}`);
+        const url = newValue === 3 ? "instructor/department" : tabNameToIndex[newValue]; 
+        history.push(`/${url}`);
     };
     
     let path = location.pathname === '/'?'/profile':location.pathname; 

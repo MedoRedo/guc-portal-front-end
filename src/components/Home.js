@@ -58,8 +58,6 @@ function Home() {
        <Route path="/courseOps" component={CourseOps} exact/>
        <Route path="/memberOps" component={MemberOps} exact/>
 
-       <Route path="/department" component={Notifications} exact/>
-
         <Route path="/login" component={Login} exact/>
         <Route path="/courses" component={AllCourses} exact/>
         <Route path="/courses/:id?" render={props => <Course {...props}/>} exact/>
