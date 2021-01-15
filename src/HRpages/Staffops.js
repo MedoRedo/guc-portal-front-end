@@ -18,7 +18,7 @@ const useStyles = makeStyles({
   },
 });
 
-// <Button variant='outlined' color='primary' onClick={() => handleClick(123)}> Delete Location</Button>
+
 
 export default function BasicTable() {
   const classes = useStyles();
@@ -26,7 +26,7 @@ export default function BasicTable() {
   const [ready, setReady] = useState(false);
 
   useEffect(async () => {
-    const LocationRes = axios.get("http://localhost:5000/getCourse", {
+    const LocationRes = axios.get("http://localhost:5000/getStaffMembers", {
       headers : {
         'auth_token' : localStorage.getItem('auth_token')
       }
@@ -42,7 +42,7 @@ export default function BasicTable() {
   },[])
 
   const handleClickDelete = async(id) => {
-    const response = await axios.delete(`http://localhost:5000/opCourse/${id}`,{
+    const response = await axios.delete(`http://localhost:5000/opStaffMemeber/${id}`,{
         headers : {
             auth_token : localStorage.getItem('auth_token')
         },
@@ -51,7 +51,7 @@ export default function BasicTable() {
 }
 
 const handleClickUpdate = async(id) => {
-    const response = await axios.post(`http://localhost:5000/opCourse/${id}`,{
+    const response = await axios.post(`http://localhost:5000/opStaffMemeber/${id}`,{
         headers : {
             auth_token : localStorage.getItem('auth_token')
         },
@@ -63,14 +63,16 @@ const handleClickUpdate = async(id) => {
       <Table className={classes.table} aria-label="simple table">
         <TableHead>
           <TableRow>
-            <TableCell >Course ID </TableCell>
-            <TableCell >Course Name</TableCell>
-            <TableCell >Course Main Department </TableCell>
-            <TableCell >Course TAs</TableCell>
-            <TableCell >Course Slots</TableCell>
-            <TableCell >Course instructors</TableCell>
-            <TableCell >Course Teaching Depts</TableCell>
+            <TableCell>Staff ID</TableCell>
+            <TableCell>email</TableCell>
+            <TableCell>Name</TableCell>
+            <TableCell>salary</TableCell>
+            <TableCell>day Off</TableCell>
+            <TableCell>Office Loc</TableCell>
+            <TableCell>Leave Balance</TableCell>
+            <TableCell>Dept</TableCell>
             <TableCell>Ops</TableCell>
+            
           </TableRow>
         </TableHead>
         <TableBody>
@@ -80,15 +82,15 @@ const handleClickUpdate = async(id) => {
                 {row.name}
               </TableCell>
               <TableCell align="left">{row.id}</TableCell>
+              <TableCell align="left">{row.email}</TableCell>
               <TableCell align="left">{row.name}</TableCell>
-              <TableCell align="left">{row.mainDepartment}</TableCell>
-              <TableCell align="left">{row.TAs}</TableCell>
-              <TableCell align="left">{row.numSlots}</TableCell>
-              <TableCell align="left">{row.instructors}</TableCell>
-              <TableCell align="left">{row.teachingDepartments}</TableCell>
-              
-              <TableCell><Button variant='outlined' color='primary' onClick={() => handleClickDelete(row.name)}> Delete Location</Button></TableCell>
-              <TableCell><Button variant='outlined' color='primary' onClick={() => handleClickUpdate(row.name)}> Update Location</Button></TableCell>
+              <TableCell align="left">{row.salary}</TableCell>
+              <TableCell align="left">{row.dayoff}</TableCell>
+              <TableCell align="left">{row.officeLoc}</TableCell>
+              <TableCell align="left">{row.leaveBalance}</TableCell>
+              <TableCell align="left">{row.department}</TableCell>
+              <TableCell><Button variant='outlined' color='primary' onClick={() => handleClickDelete(row.id)}> Delete Location</Button></TableCell>
+              <TableCell><Button variant='outlined' color='primary' onClick={() => handleClickUpdate(row.id)}> Update Location</Button></TableCell>
             </TableRow>
           ))}
         </TableBody>
