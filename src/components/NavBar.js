@@ -72,7 +72,7 @@ const NavBar = (props) =>{
                         <Tab label="Requests"/>
                     </Tabs>
                     <IconButton color="inherit" style={{marginRight: '5px'}} onClick={()=>{history.push('/notifications')}}>
-                        <Badge badgeContent={17} color="secondary">
+                        <Badge color="secondary">
                             <NotificationsIcon />
                         </Badge>
                     </IconButton>

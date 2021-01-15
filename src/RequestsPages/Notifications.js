@@ -70,7 +70,7 @@ const Notifications = (props) => {
   useEffect(async () => {
     try{
         // console.log(status + 'hereeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee')
-        const user = await axios.get('http://localhost:5000/notifications', {
+        const user = await axios.get('https://gucportalguc.herokuapp.com/notifications', {
             headers : {
               'auth_token' : localStorage.getItem('auth_token')
             }
