@@ -28,6 +28,7 @@ const Courses = (props) => {
               auth_token : localStorage.getItem('auth_token')
             }
           }).then(res => {
+            console.log(res.data);
             if(res.data !== 'invalid data'){
                 setCourses(res.data);
                 setReady(true);
@@ -53,18 +54,20 @@ const Courses = (props) => {
                     <TableCell className={classes.cell}></TableCell>
                     <TableCell className={classes.cell}>Course ID</TableCell>
                     <TableCell className={classes.cell}>Course Name</TableCell>
+                    <TableCell className={classes.cell}>Course coverage</TableCell>
                 </TableRow>
             </TableHead>
 
             <TableBody>
                 {courses.map(course => {
-                    return <TableRow key={course.id}>
+                    return <TableRow key={course.courseId}>
                         <TableCell className={classes.cell}>
-                            <Button variant='outlined' color='primary' onClick={() => handleClick(course.id)}>View Course</Button>
-                            <Button variant='outlined' color='primary' onClick={() => handleTeachingAssignments(course.id)}>View Teaching assignments</Button>
+                            <Button variant='outlined' color='primary' onClick={() => handleClick(course.courseId)}>View Course</Button>
+                            <Button variant='outlined' color='primary' onClick={() => handleTeachingAssignments(course.courseId)}>View Teaching assignments</Button>
                         </TableCell>
-                        <TableCell className={classes.cell}>{course.id}</TableCell>
+                        <TableCell className={classes.cell}>{course.courseId}</TableCell>
                         <TableCell className={classes.cell}>{course.name}</TableCell>
+                        <TableCell className={classes.cell}>{course.coverage}</TableCell>
                     </TableRow>
                 })}
             </TableBody>
