@@ -32,13 +32,13 @@ const DepartmentMembers = (props) =>{
     const [staff,setStaff] = useState([]);
 
     useEffect(()=>{
-         axios.get('http://localhost:5000/instructor/department-information',{
+         axios.get('https://gucportalguc.herokuapp.com/instructor/department-information',{
             headers : {
               auth_token : localStorage.getItem('auth_token')
             }}).then((res)=>{
                 setFacultyName(res.data.facultyName);
                 setDepartmentName(res.data.departmentName);
-                axios.get('http://localhost:5000/staff-members/department',{
+                axios.get('https://gucportalguc.herokuapp.com/staff-members/department',{
                     headers : {
                       auth_token : localStorage.getItem('auth_token')
                     }}).then((response)=>{

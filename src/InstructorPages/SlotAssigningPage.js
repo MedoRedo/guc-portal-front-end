@@ -32,9 +32,9 @@ const useStyles = makeStyles((theme) => ({
   const [courseName, setCourseName] =useState("");
   const [valid,setValid] =useState(0);
   useEffect(()=>{
-   const query1 = axios.get(`http://localhost:5000/instructors/courses/${params.courseId}/staff-members`,
+   const query1 = axios.get(`https://gucportalguc.herokuapp.com/instructors/courses/${params.courseId}/staff-members`,
     {headers:{auth_token:localStorage.getItem('auth_token')}});
-    const query2 = axios.get(`http://localhost:5000/instructors/courses`, {headers:{auth_token:localStorage.getItem('auth_token')}});
+    const query2 = axios.get(`https://gucportalguc.herokuapp.com/instructors/courses`, {headers:{auth_token:localStorage.getItem('auth_token')}});
     Promise.allSettled([query1,query2]).then((res)=>{
         if(res[0].status ==='rejected'||res[1].status ==='rejected'){
           setValid(-1);
