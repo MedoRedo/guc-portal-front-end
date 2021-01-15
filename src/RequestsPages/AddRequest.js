@@ -90,7 +90,7 @@ const AddRequest = (props) => {
             var timestamp = Date.parse(startDate);
             var d = new Date(startDate);
             // console.log(d.getFullYear() + ' ' + d.getMonth() + '  ' + d.getDate())
-            const user = await axios.post('http://localhost:5000/replacement/request',{
+            const user = await axios.post('https://gucportalguc.herokuapp.com/replacement/request',{
                 courseId: courseID,
                 receiver: receiverID,
                 startDate: d,
@@ -107,7 +107,7 @@ const AddRequest = (props) => {
         else if (requestType === 'SlotLinking'){
             // var timestamp = Date.parse(startDate);
             var d = new Date().setDate(day);
-            const user = await axios.post('http://localhost:5000/slotlinking/request',{
+            const user = await axios.post('https://gucportalguc.herokuapp.com/slotlinking/request',{
                 courseId: courseID,
                 startDate: d,
                 slot: slot,
@@ -123,7 +123,7 @@ const AddRequest = (props) => {
         else if (requestType === 'ChangeDayOff'){
             // var timestamp = Date.parse(startDate);
             var d = new Date().setDate(day);
-            const user = await axios.post('http://localhost:5000/changedayoff/request',{
+            const user = await axios.post('https://gucportalguc.herokuapp.com/changedayoff/request',{
                 dayOff: d,
                 content: content,
                 attachmentURL: attachmentURL
@@ -159,7 +159,7 @@ const AddRequest = (props) => {
                 };
             }
             // else if (requestType === '')
-            const user = await axios.post('http://localhost:5000/leave/request',
+            const user = await axios.post('https://gucportalguc.herokuapp.com/leave/request',
             params,
             {
                 headers : {

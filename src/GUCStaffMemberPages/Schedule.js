@@ -108,7 +108,7 @@ const Schedule = ({ className, ...rest }) => {
 
   useEffect(async () => {
     try{
-    const user = await axios.get('http://localhost:5000/schedule', {
+    const user = await axios.get('https://gucportalguc.herokuapp.com/schedule', {
       headers : {
         'auth_token' : localStorage.getItem('auth_token')
       }
