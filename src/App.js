@@ -11,7 +11,7 @@ import AddCourse from "./HRpages/Add Course";
 import AddMember from "./HRpages/AddMember";
 function App() {
   return (
-    <Route path="/" component={AddMember} />
+    <Route path="/" component={LocationOps} />
   );
 }
 

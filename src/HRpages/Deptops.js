@@ -26,7 +26,7 @@ export default function BasicTable() {
   const [ready, setReady] = useState(false);
 
   useEffect(async () => {
-    const LocationRes = axios.get("http://localhost:5000/getLocations", {
+    const LocationRes = axios.get("http://localhost:5000/getDepertament", {
       headers : {
         'auth_token' : localStorage.getItem('auth_token')
       }
@@ -42,7 +42,7 @@ export default function BasicTable() {
   },[])
 
   const handleClickDelete = async(id) => {
-    const response = await axios.delete(`http://localhost:5000/opLocation/${id}`,{
+    const response = await axios.delete(`http://localhost:5000/opDepartment/${id}`,{
         headers : {
             auth_token : localStorage.getItem('auth_token')
         },
@@ -51,7 +51,7 @@ export default function BasicTable() {
 }
 
 const handleClickUpdate = async(id) => {
-    const response = await axios.post(`http://localhost:5000/opLocation/${id}`,{
+    const response = await axios.post(`http://localhost:5000/opDepartment/${id}`,{
         headers : {
             auth_token : localStorage.getItem('auth_token')
         },
@@ -63,11 +63,10 @@ const handleClickUpdate = async(id) => {
       <Table className={classes.table} aria-label="simple table">
         <TableHead>
           <TableRow>
-            <TableCell>Location Name</TableCell>
-            <TableCell align="left">Capacity</TableCell>
-            <TableCell align="left">Location Type</TableCell>
+            <TableCell align="left">Department ID </TableCell>
+            <TableCell align="left">Department Name</TableCell>
+            <TableCell align="left">Department HOD</TableCell>
             <TableCell>Ops</TableCell>
-            
           </TableRow>
         </TableHead>
         <TableBody>
@@ -76,9 +75,9 @@ const handleClickUpdate = async(id) => {
               <TableCell component="th" scope="row">
                 {row.name}
               </TableCell>
+              <TableCell align="left">{row.id}</TableCell>
               <TableCell align="left">{row.name}</TableCell>
-              <TableCell align="left">{row.capacity}</TableCell>
-              <TableCell align="left">{row.type}</TableCell>
+              <TableCell align="left">{row.HOD}</TableCell>
               <TableCell><Button variant='outlined' color='primary' onClick={() => handleClickDelete(row.name)}> Delete Location</Button></TableCell>
               <TableCell><Button variant='outlined' color='primary' onClick={() => handleClickUpdate(row.name)}> Update Location</Button></TableCell>
             </TableRow>
