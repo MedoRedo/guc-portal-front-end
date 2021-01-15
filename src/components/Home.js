@@ -41,16 +41,11 @@ import AddSlot from '../CoordinatorPages/AddSlotPage';
 import UpdateSlots from '../CoordinatorPages/UpdateSlotPage'
 
 function Home() {
-
-  const [visible, setVisible] = useState(true);
-  const showNavBar = (show) => {
-    setVisible(show);
-  }
   return (
     <>
-      {(visible && <NavBar/>)}
+      <NavBar/>
       <Switch>
-       <Route path="/hrhome" component={HRbuttons} exact/>
+       <Route path="/HR" component={HRbuttons} exact/>
        <Route path="/addLocation" component={AddLocation} exact/>
        <Route path="/addFaculty" component={AddFaculty} exact/>
        <Route path="/addDept" component={AddDept} exact/>
@@ -90,7 +85,7 @@ function Home() {
         <Route path="/attendance" component={Attendance} exact/>
         <Route path="/schedule" component={Schedule}/>
         <Route path="/" component={Profile} exact/>
-        <Route render={() => (<Forbidden showNavBar={showNavBar}/>)}/>
+        <Route component={Forbidden}/>
       </Switch>
     </>
   );

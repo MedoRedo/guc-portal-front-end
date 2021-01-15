@@ -32,14 +32,18 @@ const NavBar = (props) =>{
     const tabNameToIndex = {
         0: "",
         1: "courses",
-        2: "requests"
+        2: "requests",
+        3: "department",
+        4: "HR"
     };
   
 
     const indexToTabName = {
         profile: 0,
         courses: 1,
-        requests: 2
+        requests: 2,
+        department : 3,
+        HR : 4
     }
 
     const classes = useStyles();
@@ -48,7 +52,8 @@ const NavBar = (props) =>{
     
     const handleChange = (event, newValue) => {
         setSelectedTab(newValue);
-        history.push(`/${tabNameToIndex[newValue]}`);
+        const url = newValue === 3 ? "instructor/department" : tabNameToIndex[newValue]; 
+        history.push(`/${url}`);
     };
     
     let path = location.pathname === '/'?'/profile':location.pathname; 
@@ -70,6 +75,8 @@ const NavBar = (props) =>{
                         <Tab icon={<AccountCircle/>}/>
                         <Tab label="Courses" />
                         <Tab label="Requests"/>
+                        <Tab label="Department"/>
+                        {localStorage.getItem('userId').charAt(0) === 'h' && <Tab label="HR"/>}
                     </Tabs>
                     <IconButton color="inherit" style={{marginRight: '5px'}} onClick={()=>{history.push('/notifications')}}>
                         <Badge color="secondary">
