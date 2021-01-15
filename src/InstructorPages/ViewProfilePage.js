@@ -37,7 +37,8 @@ const notDisplayed = {
   loggedIn : "",
   notifications : "",
   firstLogin : "",
-  name : ""
+  name : "",
+  faculty:""
 }
 
 const mapNumberToDay = (num) => {
@@ -53,9 +54,10 @@ const mapNumberToDay = (num) => {
   }
 }
 
-const ProfileBody = ({ className, staticContext,...rest }) => {
+const ProfileBody = ({ className,staticContext, ...rest }) => {
   const memberId = useParams();
   const classes = useStyles();
+  console.log({...rest});
   const [values, setValues] = useState({
     id:"",
     email:"",
@@ -63,22 +65,35 @@ const ProfileBody = ({ className, staticContext,...rest }) => {
     gender:"",
     dayOff: -1,
     officeLoc: "",
-    department : ""
+    department : "",
+    faculty:""
   });
   const [valid,setValid] = useState(0);
   useEffect(()=>{
-         axios.get(`http://localhost:5000/instructors/staff-members/${memberId.id}`,{headers : {
+         const query1 = axios.get(`http://localhost:5000/instructors/staff-members/${memberId.id}`,{headers : {
             auth_token : localStorage.getItem('auth_token')
-          }}).then((res)=>{
-              setValues({id:memberId.id,name:res.data.memberName,email:res.data.memberEmail,gender:res.data.memberGender,
-                dayOff:res.data.memberDayoff,officeLoc:res.data.memberOfficeLoc,department:res.data.memberDepartment
+          }});
+          const query2 = axios.get(`http://localhost:5000/staff-members/department/${memberId.id}`,{headers : {
+            auth_token : localStorage.getItem('auth_token')
+          }});
+          Promise.allSettled([query1,query2]).then((res)=>{
+            if(res[0].status==='fulfilled'){
+              setValues({id:memberId.id,name:res[0].value.data.memberName,email:res[0].value.data.memberEmail,gender:res[0].value.data.memberGender,
+                dayOff:res[0].value.data.memberDayoff,officeLoc:res[0].value.data.memberOfficeLoc,department:res[0].value.data.memberDepartment,faculty:res[0].value.data.memberFaculty
             });
             setValid(1);
-          }).catch((err)=>{
-            console.log(err);
-            setValid(-1);
-          })
-  })
+          }
+            else if(res[1].status==='fulfilled'){
+              setValues({id:memberId.id,name:res[1].value.data.memberName,email:res[1].value.data.memberEmail,gender:res[1].value.data.memberGender,
+                dayOff:res[1].value.data.memberDayoff,officeLoc:res[1].value.data.memberOfficeLoc,department:res[1].value.data.memberDepartment,faculty:res[1].value.data.memberFaculty
+            });
+            setValid(1);
+            }else{
+              setValid(-1);
+            }
+            }
+          )
+  },[])
   const displayData = (profile) => {
     let res = [];
     for(const elem in profile) {
@@ -114,12 +129,11 @@ const ProfileBody = ({ className, staticContext,...rest }) => {
       autoComplete="off"
       noValidate
       className={clsx(classes.root, className)}
-      staticContext
       {...rest}
     >
       <Card>
         <CardHeader
-          subheader="Faculty of Media Engineering and Technology"
+          subheader={`Faculty of ${values.faculty}`}
           title={values.name}
           titleTypographyProps={{
             variant:"h4"
