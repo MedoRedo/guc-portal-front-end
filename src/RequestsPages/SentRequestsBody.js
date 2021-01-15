@@ -56,7 +56,8 @@ const useStyles = makeStyles((theme) => ({
       fontWeight: 'bold'
     },
   table: {margin: theme.spacing(4)},
-  cell :{textAlign:'center', padding: theme.spacing(2),}
+  cell :{textAlign:'center', padding: theme.spacing(2),},
+  button: {margin: '5px'}
 }));
 
 // const requests = [{id: 1, status: 'Pending', submissionDate: '25/5/2020', type: 'Replacement', receiver: '1234'}, {id: 2, status: 'Accepted', submissionDate: '26/5/2020', type: 'Slot linking', receiver: '4321'}]
@@ -110,6 +111,35 @@ const SentRequestsBody = (props) => {
     }
   }
 
+  const handleAccept = async(id) => {
+      await axios.post('http://localhost:5000/HOD/request',
+        {requestId: id, status: 'Accepted'},
+        {
+          headers : {
+              auth_token : localStorage.getItem('auth_token')
+          }
+        }
+      ).then(res => {
+        if(res.status == 200){
+          setRequests(requests.filter(request => request.id != id));
+        }
+      })
+  }
+
+  const handleReject = async(id)=>{
+    await axios.post('http://localhost:5000/HOD/request',
+    {requestId: id, status: 'Rejected'},
+    {
+      headers : {
+          auth_token : localStorage.getItem('auth_token')
+      }
+    }
+    ).then(res => {
+      if(res.status == 200){
+        setRequests(requests.filter(request => request.id != id));
+      }
+    })
+  }
   return (
     localStorage.getItem('auth_token') === null ? <Redirect to="/login"/> : status === undefined ? <Redirect to="/requests"/> :
     ready &&
@@ -173,6 +203,10 @@ const SentRequestsBody = (props) => {
                         <TableCell className={classes.cell}>{request.type}</TableCell>
                         <TableCell className={classes.cell}>{request.sender}</TableCell>
                         <TableCell className={classes.cell}>{request.receiver}</TableCell>
+                        <TableCell className={classes.cell}>
+                          <Button className={classes.button} variant='contained' color='primary' onClick={()=> handleAccept(request.id)}>Accept</Button>
+                          <Button className={classes.button} variant='contained' color='secondary' onClick={()=> handleReject(request.id)}>Reject</Button>
+                        </TableCell>
                         {/* <TableCell className={classes.cell}><Button variant='outlined' color='primary' onClick={()=>{handleClick(request.id)}}>Cancel Request</Button></TableCell> */}
                     </TableRow>
                 })}
