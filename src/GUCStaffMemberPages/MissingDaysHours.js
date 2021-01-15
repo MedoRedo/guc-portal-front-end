@@ -30,17 +30,17 @@ export default function MissingDaysHours() {
   const [salary, setSalary] = useState(0);
   const [ready, setReady] = useState(false);
   useEffect(async () => {
-    const daysRes = axios.get("http://localhost:5000/missingDays", {
+    const daysRes = axios.get("https://gucportalguc.herokuapp.com/missingDays", {
       headers : {
         'auth_token' : localStorage.getItem('auth_token')
       }
     })
-    const hoursRes = axios.get("http://localhost:5000/missingHours", {
+    const hoursRes = axios.get("https://gucportalguc.herokuapp.com/missingHours", {
       headers : {
         'auth_token' : localStorage.getItem('auth_token')
       }
     })
-    const salaryRes = axios.get("http://localhost:5000/profile", {
+    const salaryRes = axios.get("https://gucportalguc.herokuapp.com/profile", {
       headers : {
         'auth_token' : localStorage.getItem('auth_token')
       }
