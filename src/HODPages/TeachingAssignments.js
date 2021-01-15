@@ -86,7 +86,7 @@ export default function TeachingAssignments(props){
     const[ready, setReady] = useState(false);
 
     useEffect(async() => {
-        await axios.get(`http://localhost:5000/HOD/viewTeachingAssignments/${props.match.params.id}`,{
+        await axios.get(`https://gucportalguc.herokuapp.com/HOD/viewTeachingAssignments/${props.match.params.id}`,{
             headers : {
               auth_token : localStorage.getItem('auth_token')
             }
