@@ -6,13 +6,7 @@ export default function App() {
   let history = useHistory();
   const { register, handleSubmit } = useForm();
 
-<<<<<<< HEAD
   const onSubmit = (data) => axios.post("https://gucportalguc.herokuapp.com/addFaculty",{
-||||||| merged common ancestors
-  const onSubmit = (data) => axios.post("http://localhost:5000/addLocation",{
-=======
-  const onSubmit = (data) => axios.post("https://gucportalguc.herokuapp.com/addLocation",{
->>>>>>> 4e8321efbec396c65f37efaee30dd86b54121676
     headers : {
       auth_token : localStorage.getItem('auth_token')
     }
