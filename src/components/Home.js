@@ -4,6 +4,7 @@ import Profile from '../GUCStaffMemberPages/Profile';
 import SentRequests from "../RequestsPages/SentRequests";
 import SentRequestsBody from "../RequestsPages/SentRequestsBody";
 import AddRequest from "../RequestsPages/AddRequest";
+import Notifications from "../RequestsPages/Notifications";
 import AllCourses from '../CommonCourses/Courses';
 import InstructorCourseInfo from '../InstructorPages/CourseInfoPage'
 import Course from "../HODPages/Course";
@@ -35,19 +36,16 @@ import Schedule from '../GUCStaffMemberPages/Schedule'
 import AssignSlot from '../InstructorPages/SlotAssigningPage';
 import TeachingAssignments from "../HODPages/TeachingAssignments";
 import DepartmentMembers from '../InstructorPages/DepartmentMembers';
-import SlotLinkageRequests from '../CoordinatorPages/SlotLinkageRequests'
+import SlotLinkageRequests from '../CoordinatorPages/SlotLinkageRequests';
+import AddSlot from '../CoordinatorPages/AddSlotPage';
+import UpdateSlots from '../CoordinatorPages/UpdateSlotPage'
 
 function Home() {
-
-  const [visible, setVisible] = useState(true);
-  const showNavBar = (show) => {
-    setVisible(show);
-  }
   return (
     <>
-      {(visible && <NavBar/>)}
+      <NavBar/>
       <Switch>
-       <Route path="/hrhome" component={HRbuttons} exact/>
+       <Route path="/HR" component={HRbuttons} exact/>
        <Route path="/addLocation" component={AddLocation} exact/>
        <Route path="/addFaculty" component={AddFaculty} exact/>
        <Route path="/addDept" component={AddDept} exact/>
@@ -68,6 +66,7 @@ function Home() {
         <Route path="/requests" component={SentRequests} exact/>
         <Route path="/sentRequestsBody" render={props => <SentRequestsBody {...props}/>} exact/>
         <Route path="/addRequest" component={AddRequest} exact/>
+        <Route path="/notifications" component={Notifications} exact/>
         <Route path="/changePassword" component={ChangePassword} exact/>
         <Route path="/courses/:id/instructor" component={InstructorCourseInfo} exact/>;
         <Route path="/profile/:id" component={ViewProfile} exact/>
@@ -76,6 +75,8 @@ function Home() {
         <Route path="/courses/:courseId/slots/:slotId" component={AssignSlot} exact/>
         <Route path="/instructor/department" component={DepartmentMembers} exact/>
         <Route path="/courses/:courseId/co-ordinator" component={SlotLinkageRequests} exact/>
+        <Route path="/courses/:courseId/co-ordinator/SlotAdding" component={AddSlot} exact/>
+        <Route path='/courses/:courseId/co-ordinator/SlotEditing' component={UpdateSlots} exact/>
         <Route path="/signin" component={SignInOut} exact/>
         <Route path="/signout" component={SignInOut} exact/>
         <Route path="/updateProfile" component={UpadteProfile} exact/>
@@ -84,7 +85,7 @@ function Home() {
         <Route path="/attendance" component={Attendance} exact/>
         <Route path="/schedule" component={Schedule}/>
         <Route path="/" component={Profile} exact/>
-        <Route render={() => (<Forbidden showNavBar={showNavBar}/>)}/>
+        <Route component={Forbidden}/>
       </Switch>
     </>
   );

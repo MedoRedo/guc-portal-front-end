@@ -43,7 +43,7 @@ const Slot = (props)=>{
         history.push(`/courses/${params.courseId}/slots/${props.slotId}`);
     }
     const handleDelete = ()=>{
-        fetch(`http://localhost:5000/instructors/slots/${props.slotId}`,{
+        fetch(`https://gucportalguc.herokuapp.com/instructors/slots/${props.slotId}`,{
         method:'PATCH',
         headers:{
             'Content-Type':'application/json',
@@ -54,7 +54,7 @@ const Slot = (props)=>{
         console.log(res);
         setInstructor('Not Assigned yet');
         setValid(1);
-        axios.get(`http://localhost:5000/instructors/courses/${params.courseId}/unassigned-slots`,{headers : {
+        axios.get(`https://gucportalguc.herokuapp.com/instructors/courses/${params.courseId}/unassigned-slots`,{headers : {
             auth_token : localStorage.getItem('auth_token')
           }}).then( 
             (res)=>{
@@ -65,7 +65,7 @@ const Slot = (props)=>{
 
             }
         )
-        axios.get(`http://localhost:5000/courses/${params.courseId}/slots-assignment`,{headers : {
+        axios.get(`https://gucportalguc.herokuapp.com/courses/${params.courseId}/slots-assignment`,{headers : {
             auth_token : localStorage.getItem('auth_token')
           }}).then( 
             (res)=>{

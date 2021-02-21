@@ -22,7 +22,7 @@ const CoordinatorCourses = (props) => {
     const [courses, setCourses] = useState([]);
     useEffect(() => {
         // console.log('componentDidMount');
-        axios.get("http://localhost:5000/coordinator/courses",{
+        axios.get("https://gucportalguc.herokuapp.com/coordinator/courses",{
             headers : {
               auth_token : localStorage.getItem('auth_token')
             }

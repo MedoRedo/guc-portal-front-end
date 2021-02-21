@@ -33,7 +33,7 @@ const InstructorCourseInfo = (props) =>{
     const [validCoverage,setValidCoverage] = useState(0);
     const [validTables,setValidTables] = useState(0);
     useEffect(()=>{
-         axios.get('http://localhost:5000/instructors/courses',{
+         axios.get('https://gucportalguc.herokuapp.com/instructors/courses',{
             headers : {
               auth_token : localStorage.getItem('auth_token')
             }}).then((res)=>{
@@ -51,7 +51,7 @@ const InstructorCourseInfo = (props) =>{
     },[ ]);
     const [coverage,setCoverage] = useState('0%');
     useEffect(()=>{
-        axios.get('http://localhost:5000/instructors/coverage',{
+        axios.get('https://gucportalguc.herokuapp.com/instructors/coverage',{
             headers : {
               auth_token : localStorage.getItem('auth_token')
             }}).then((res)=>{
@@ -66,7 +66,7 @@ const InstructorCourseInfo = (props) =>{
     const [tas,setTas] = useState([]);
     const [instructors,setInstructos] = useState([]);
     useEffect(()=>{
-        axios.get(`http://localhost:5000/instructors/courses/${courseId.id}/staff-members`,{
+        axios.get(`https://gucportalguc.herokuapp.com/instructors/courses/${courseId.id}/staff-members`,{
             headers : {
               auth_token : localStorage.getItem('auth_token')
             }}).then((res)=>{

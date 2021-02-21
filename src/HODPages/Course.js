@@ -46,7 +46,7 @@ export default function Course(props) {
     }
 
     const handleClickDelete = async(id) => {
-        const response = await axios.delete('http://localhost:5000/HOD/deleteInstructor',{
+        const response = await axios.delete('https://gucportalguc.herokuapp.com/HOD/deleteInstructor',{
             headers : {
                 auth_token : localStorage.getItem('auth_token')
             },
@@ -58,7 +58,7 @@ export default function Course(props) {
     }
 
     useEffect(()=> {
-        axios.get(`http://localhost:5000/HOD/courses/${props.match.params.id}`,{
+        axios.get(`https://gucportalguc.herokuapp.com/HOD/courses/${props.match.params.id}`,{
             headers : {
               auth_token : localStorage.getItem('auth_token')
             }

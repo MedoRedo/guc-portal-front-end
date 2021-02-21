@@ -24,7 +24,7 @@ function CoordSnackbar(props) {
     const handleClick = () => {
     const courseId =params.courseId;
     console.log(props.memberId);
-    fetch(`http://localhost:5000/instructors/courses/${courseId}/coordinator/${props.memberId}`,{
+    fetch(`https://gucportalguc.herokuapp.com/instructors/courses/${courseId}/coordinator/${props.memberId}`,{
         method:'PATCH',
         headers:{
             'Content-Type':'application/json',

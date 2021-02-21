@@ -54,13 +54,13 @@ const useStyles = makeStyles((theme) => ({
 
 const mapNumberToDay = (num) => {
   switch(num) {
-    case 0 : return "Saturday";
-    case 1 : return "Sunday";
-    case 2 : return "Monday";
-    case 3 : return "Tuesday";
-    case 4 : return "Wednesday";
-    case 5 : return "Thursday";
-    case 6 : return "Friday";
+    case 0 : return "Sunday";
+    case 1 : return "Monday";
+    case 2 : return "Tuesday";
+    case 3 : return "Wednesday";
+    case 4 : return "Thursday";
+    case 5 : return "Friday";
+    case 6 : return "Saturday";
   }
 }
 
@@ -83,7 +83,7 @@ const Schedule = ({ className, ...rest }) => {
   const [ready, setReady] = useState(false);
   const displayData = (schedule) => {
     let res = [];
-    for (let day = 0; day < 6; day++) {
+    for (let day = 0; day < 7; day++) {
         let slots = [];
         for (let slot = 0; slot < 5; slot++) {
             
@@ -108,7 +108,7 @@ const Schedule = ({ className, ...rest }) => {
 
   useEffect(async () => {
     try{
-    const user = await axios.get('http://localhost:5000/schedule', {
+    const user = await axios.get('https://gucportalguc.herokuapp.com/schedule', {
       headers : {
         'auth_token' : localStorage.getItem('auth_token')
       }
@@ -133,7 +133,7 @@ const Schedule = ({ className, ...rest }) => {
       {...rest}
     >
       <Card>
-        <CardHeader
+        {/* <CardHeader
           subheader="Faculty of Media Engineering and Technology"
           title={'ZIAX'}
           titleTypographyProps={{
@@ -143,7 +143,7 @@ const Schedule = ({ className, ...rest }) => {
             variant:"h5"
           }}
           avatar={<Avatar alt="profile picture" src={avatar} style={{width:'5em', height:'5em'}}/>}
-        />
+        /> */}
         <Divider />
         <TableContainer className={classes.tableContainer} component={Paper}>
       <Table size="small" aria-label="a dense table">

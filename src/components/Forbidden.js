@@ -4,10 +4,6 @@ import batBody from '../static/images/403/bat-body.png';
 import hauntedHouse from '../static/images/403/HauntedHouseForeground.png';
 import ForbiddenStyles from '../static/styles/ForbiddenStyles.module.css'; 
 const Forbidden = (props)=>{
-     useEffect(() => {
-          console.log('here');
-          props.showNavBar(false);
-     }, [])
 return(
 <div className={ForbiddenStyles.div}>
 <div className={ForbiddenStyles.maincontainer}>
