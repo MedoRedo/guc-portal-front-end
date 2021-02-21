@@ -1,11 +1,12 @@
 import * as React from "react";
 import { useForm } from "react-hook-form";
 import axios from 'axios';
-
+import {Redirect, useHistory} from 'react-router-dom';
 export default function App() {
+  let history = useHistory();
   const { register, handleSubmit } = useForm();
 
-  const onSubmit = (data) => axios.post("http://localhost:5000/addLocation",{
+  const onSubmit = (data) => axios.post("https://gucportalguc.herokuapp.com/addDepartment",{
     headers : {
       auth_token : localStorage.getItem('auth_token')
     }
