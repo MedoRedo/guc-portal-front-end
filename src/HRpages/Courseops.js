@@ -10,8 +10,7 @@ import Paper from '@material-ui/core/Paper';
 import React, { useContext, useEffect, useState } from 'react';
 import axios from 'axios';
 import Button from '@material-ui/core/Button';
-import {Redirect} from 'react-router-dom';
-
+import {Redirect, useHistory} from 'react-router-dom';
 const useStyles = makeStyles({
   table: {
     minWidth: 650,
@@ -21,6 +20,7 @@ const useStyles = makeStyles({
 // <Button variant='outlined' color='primary' onClick={() => handleClick(123)}> Delete Location</Button>
 
 export default function BasicTable() {
+  let history = useHistory();
   const classes = useStyles();
   const [rows, setRows] = useState([]);
   const [ready, setReady] = useState(false);

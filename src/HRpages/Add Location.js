@@ -1,8 +1,9 @@
 import * as React from "react";
 import { useForm } from "react-hook-form";
 import axios from 'axios';
-
+import {Redirect, useHistory} from 'react-router-dom';
 export default function App() {
+  let history = useHistory();
   const { register, handleSubmit } = useForm();
 
   const onSubmit = (data) => axios.post("https://gucportalguc.herokuapp.com/addLocation",{

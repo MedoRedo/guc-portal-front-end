@@ -1,11 +1,19 @@
 import * as React from "react";
 import { useForm } from "react-hook-form";
 import axios from 'axios';
+import {Redirect, useHistory} from 'react-router-dom';
 
 export default function App() {
+  let history = useHistory();
   const { register, handleSubmit } = useForm();
 
+<<<<<<< HEAD
+  const onSubmit = (data) => axios.post("https://gucportalguc.herokuapp.com/addCourse",{
+||||||| merged common ancestors
+  const onSubmit = (data) => axios.post("http://localhost:5000/addLocation",{
+=======
   const onSubmit = (data) => axios.post("https://gucportalguc.herokuapp.com/addLocation",{
+>>>>>>> 4e8321efbec396c65f37efaee30dd86b54121676
     headers : {
       auth_token : localStorage.getItem('auth_token')
     }
@@ -57,7 +65,6 @@ export default function App() {
       <label style={labelStyle} for="teachingDepartments">Teaching Departments</label>
       <input name="teachingDepartments" ref={register} placeholder="CSEN,ELECT,COMM" /> 
       
-
       <input type="submit" />
     </form>
     </>
